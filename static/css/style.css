@@ -1,0 +1,188 @@
+html { 
+    overflow-x: hidden;
+    overflow-y: scroll; 
+}
+
+
+.input input {
+    font-family: 微软雅黑;
+    font-size: 10pt;
+    
+}
+
+.input textarea {
+    font-family: 微软雅黑;
+    font-size: 10pt;
+    
+}
+
+/*
+.input input {
+    width: 200px;
+    padding: 5px;
+    height: 18px;
+    font-family: 微软雅黑;
+    font-size: 10pt;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #c9c9c9;
+}
+*/
+
+.input label {
+    margin-right: 15px;
+}
+
+.input li {
+    list-style-type: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.error {
+    color: #f00
+}
+
+.messages .m_name {
+    font-size: 16pt;
+    font-weight: bold; 
+    margin-bottom: 10px;
+}
+
+.messages .m_time {
+    font-size: 10pt;
+}
+
+.messages .m_content {
+    font-size: 12pt;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.messages .m_ip {
+    font-size: 10pt;
+}
+
+.messages li {
+    list-style-type: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 2px #ccc;
+}
+
+#header {
+    margin: 0;
+    padding: 0;
+    background: #FF6666;
+}
+
+#header h1 {
+    margin: 0;
+    padding: 30px;
+    padding-bottom: 15px;
+    font-family: 微软雅黑;
+    font-size: 22pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+#navigation {
+    padding-right:10px;
+    padding-bottom:5px;
+    font-family: 微软雅黑;
+    font-size: 12pt;
+    text-align: right;
+    
+}
+
+#content {
+    font-family: 微软雅黑;
+    margin: 0;
+    padding: 10px;
+    background: #FFFF66;
+}
+
+#content h2 {
+    font-family: 微软雅黑;
+    font-size: 16pt;
+    font-weight: bold;
+}
+#content h3 {
+    font-family: 微软雅黑;
+    font-size: 13pt;
+    font-weight: normal;
+}
+
+#content p {
+    text-indent: 2em;
+    font-family: 微软雅黑;
+    font-size: 12pt;
+    font-weight: normal;
+}
+
+#content .post {
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+#content .post h2 {
+    text-align: center;
+}
+
+#content .title {
+    font-family: 微软雅黑;
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: center;
+}
+#content .image-container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+#content .image-container .title {
+    margin-top: 10px;
+    font-family: 微软雅黑;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#serving_dist p {
+    margin: 0;
+    padding: 10px;
+    font-family: 方正少儿_GBK;
+    font-size: 16pt;
+    text-align: center;
+    background: #99CC33;
+}
+#contact_us p {
+    margin: 0;
+    padding: 10px;
+    padding-left: 2em;
+    font-family: 微软雅黑;
+    font-size: 16pt;
+    background: #6699CC;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:active, a:hover {
+    background-color: #99CC33;
+    color: #fff;
+}
+
+.return {
+    font-family: 微软雅黑;
+    font-size: 12pt;
+    text-align: right;
+}
+
+.recommend {
+    font-family: 宋体;
+    font-size: 10pt;
+    color: #f00;
+}

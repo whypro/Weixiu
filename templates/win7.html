@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Windows 7 界面预览 | 电脑维护 上门服务</title>
+{% endblock %}
+{% block body %}
+<div id="content">
+    <div class="return"><a href="/">【返回首页】</a></div>
+    <div class="post">
+        <h2>Windows 7 界面预览</h2>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='image/win7-logo.png') }}" title="LOGO"/>
+            <div class="title">图 1：Windows 7 LOGO</div>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='image/win7-1.jpg') }}" title="桌面"/>
+            <div class="title">图 2：Windows 7 桌面</div>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='image/win7-2.jpg') }}" title="我的电脑"/>
+            <div class="title">图 3：Windows 7 我的电脑</div>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='image/win7-3.jpg') }}" title="个性化主题"/>
+            <div class="title">图 4：Windows 7 个性化主题</div>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='image/win7-4.jpg') }}" title="游戏"/>
+            <div class="title">图 5：Windows 7 游戏</div>
+        </div>
+    </div>
+    <div class="return"><a href="/">【返回首页】</a></div>
+</div>
+{% endblock %}

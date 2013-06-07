@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+{% block title %}{% endblock %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
+<div id="canvas" style="margin: 0; margin-left: 50px; margin-right: 50px; padding: 0; border: solid 5px #ccc;">
+    <div id="header">
+        <h1><a href="{{ url_for('index') }}">电脑维护&emsp;上门服务</a></h1>
+        <div id="navigation">
+            {% if session.logged_in %}
+            <em>欢迎，{{ session.username }}</em> |  
+            {% endif %}
+            <a href="{{ url_for('index') }}">首页</a> | 
+            {% if session.logged_in %}
+            <a href="{{ url_for('logout') }}">注销</a> | 
+            {% else %}
+            <a href="{{ url_for('register') }}">注册</a> | 
+            <a href="{{ url_for('login') }}">登录</a> | 
+            {% endif %}
+            <a href="{{ url_for('message') }}">留言板</a> | 
+            <a>关于我们</a>
+        </div>
+    </div>
+    {% block body %}{% endblock %}
+    <div id="footer">
+        <div id="serving_dist">
+            <p>价格实惠，欢迎来电预约</p>
+            <p>上门服务范围：秦岭、华兴各大街坊</p>
+        </div>
+        <div id="contact_us">
+            <p>
+                联系人：Mr. 王<br />
+                电&emsp;话：13379102215&emsp;&emsp;&emsp;&emsp;18089170585
+            </p>
+        </div>
+    </div>
+</div>
+</html>

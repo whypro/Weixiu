@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+    <div id="content">
+    <div class="input">
+    <form action="{{ url_for('register') }}" method="post" />
+        <ul>
+            {% if error %}
+            <li class="error">错&emsp;误：{{ error }}</li>
+            {% endif %}
+            <li><label>用户名</label><input type="text" name="username" /></li>
+            <li><label>密&emsp;码</label><input type="password" name="password" /></li>
+            <li><input type="submit" value="注册" /></li>
+        </ul>
+    </form>
+    </div>
+    </div>
+{% endblock %}

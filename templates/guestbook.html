@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}
+<title>留言板 | 电脑维护 上门服务</title>
+{% endblock %}
+{% block body %}
+<div id="content">
+
+    <div class="input">
+    <form method="POST" action="">
+    <ul>
+        {% if error %}
+        <li class="error">错&emsp;误：{{ error }}</li>
+        {% endif %}
+        <li><label>姓&emsp;名</label><input name="name" type="text"  /></li>
+        <li><label>邮&emsp;箱</label><input name="email" type="text" /></li>
+        <li><label>内&emsp;容</label><textarea name="content" rows="6" cols="60" placeholder="在此输入留言内容……"></textarea></li>
+        <li><label>验证码</label><input name="vcode" type="text" /><img src="{{ url_for('get_code') }}" onclick="this.src='{{ url_for('get_code') }}'" /></li>
+        <li><input name="submit" type="submit" value="留言" /></li>
+    </ul>
+    </form>
+    </div>
+    {% if session.logged_in %}
+    <div class="messages">
+    <ul>
+    {% for message in messages %}
+        <li>
+            <div class="m_name">姓名：{{ message.name }}</div>
+            <span class="m_time">留言时间：{{ message.datetime }}</span>
+            <span class="m_ip">IP 地址：{{ message.ip }}</span>
+            <div class="m_content">内容：{{ message.content }}</div>
+        </li>
+    {% else %}
+        <em>无留言</em>
+    {% endfor %}
+    </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
