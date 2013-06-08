@@ -79,7 +79,7 @@ def leave_message():
     else:
         if session.get('logged_in'):
             cur = g.db.cursor()
-            cur.execute('select user_group from people where username=%s and group=%s', (session.get('username'), 'admin'))
+            cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
             if cur.rowcount > 0:
                 cur = g.db.cursor()
                 cur.execute('select name, email, content, datetime, ip from message order by id desc')
@@ -127,7 +127,8 @@ def register():
             if not row:
                 cur.execute('insert into people(username, password) values(%s, %s)', (request.form['username'], request.form['password']))
                 g.db.commit()
-                return redirect(url_for('login'))
+                flash(u'注册成功，3 秒钟内将返回首页……')
+                return render_template('flash.html')
             else:
                 error = u'用户名已存在'
                 
