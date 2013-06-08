@@ -3,6 +3,10 @@ html {
     overflow-y: scroll; 
 }
 
+p {
+    margin: 0;
+    padding: 0;
+}
 
 .input input {
     font-family: 微软雅黑;
@@ -71,6 +75,7 @@ html {
 }
 
 #header {
+    border-radius: 10px;
     margin: 0;
     padding: 0;
     background: #FF6666;
@@ -96,6 +101,7 @@ html {
 }
 
 #content {
+    border-radius: 10px;
     font-family: 微软雅黑;
     margin: 0;
     padding: 10px;
@@ -114,6 +120,8 @@ html {
 }
 
 #content p {
+    margin-top: 1em;
+    margin-bottom: 1em;
     text-indent: 2em;
     font-family: 微软雅黑;
     font-size: 12pt;
@@ -148,21 +156,34 @@ html {
     font-weight: bold;
 }
 
-#serving_dist p {
+#serving_dist {
+    border-radius: 10px;
     margin: 0;
-    padding: 10px;
+    padding: 5px;
     font-family: 方正少儿_GBK;
     font-size: 16pt;
     text-align: center;
     background: #99CC33;
 }
-#contact_us p {
+
+#serving_dist p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#contact_us {
+    border-radius: 10px;
     margin: 0;
-    padding: 10px;
+    padding: 5px;
     padding-left: 2em;
     font-family: 微软雅黑;
     font-size: 16pt;
     background: #6699CC;
+}
+
+#contact_us p {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 a {

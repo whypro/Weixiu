@@ -49,22 +49,17 @@ def index():
 def show_os():
     return render_template('os.html')
 
+from flask import abort
 @app.route('/os/<os>/')
 def show_os_info(os):
     t_name = os + '.html'
-    return render_template(t_name)
-
-
-@app.route('/hello/')
-def hello():
-    return 'Hello World'
-
-@app.route('/user/<username>/')
-def profile(username):
-    return '%s' % username
+    try:
+        return render_template(t_name)
+    except:
+        abort(404)
 
 @app.route('/guestbook/', methods=['GET', 'POST'])
-def message():
+def leave_message():
     error = None
     messages = []
     if request.method == 'POST':
@@ -75,21 +70,21 @@ def message():
         elif request.form['vcode'].upper() != session['validate'].upper():
             error = u'验证码不正确'
         else:
+            # 前台验证通过
             cur = g.db.cursor()
             cur.execute('insert into message(name, email, content, ip) values(%s, %s, %s, %s)', (request.form['name'], request.form['email'], request.form['content'], request.remote_addr))
             g.db.commit()
-            flash(u'留言成功')
-            return redirect(url_for('index'))
+            flash(u'留言成功，3 秒钟内将返回首页……')
+            return render_template('flash.html', target='index')
     else:
         if session.get('logged_in'):
             cur = g.db.cursor()
-            cur.execute('select user_group from people where username=%s', session.get('username'))
-            row = cur.fetchone()
-            if row and row[0] == 'admin':
+            cur.execute('select user_group from people where username=%s and group=%s', (session.get('username'), 'admin'))
+            if cur.rowcount > 0:
                 cur = g.db.cursor()
                 cur.execute('select name, email, content, datetime, ip from message order by id desc')
                 messages = [dict(name=row[0], content=row[2], datetime=row[3], ip=row[4]) for row in cur.fetchall()]
-            
+    
     return render_template('guestbook.html', messages=messages, error=error)
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -106,16 +101,18 @@ def login():
             else:
                 session['logged_in'] = True
                 session['username'] = request.form['username']
-                flash(u'登陆成功')
-                return redirect(url_for('message'))
+                flash(u'登陆成功，3 秒钟内将返回首页……')
+                return render_template('flash.html')
+
     return render_template('login.html', error=error)
 
 @app.route('/logout/')
 def logout():
     session.pop('logged_in', None)
     session.pop('username', None)
-    flash('已注销')
-    return redirect(url_for('message'))
+    flash(u'已注销，3 秒钟内将返回首页……')
+    return render_template('flash.html')
+
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
@@ -149,6 +146,10 @@ def get_code():
     response.headers['Content-Type'] = 'image/png'
     return response
 
+@app.route('/join_us/')
+def join_us():
+    return render_template('join-us.html')
+    
 if __name__ == "__main__":
     app.debug = True
     app.run()
