@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block title %}
+<title>注册 | 电脑维护 上门服务</title>
+{% endblock %}
 {% block body %}
     <div id="content">
     <div class="input">
@@ -7,7 +10,7 @@
             {% if error %}
             <li class="error">错&emsp;误：{{ error }}</li>
             {% endif %}
-            <li><label>用户名</label><input type="text" name="username" /></li>
+            <li><label>用户名</label><input type="text" name="username" autocomplete="off" disableautocomplete /></li>
             <li><label>密&emsp;码</label><input type="password" name="password" /></li>
             <li><input type="submit" value="注册" /></li>
         </ul>

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+<title>个人中心 | 电脑维护 上门服务</title>
+{% endblock %}
+{% block body %}
+    <div id="content">
+    <div class="input">
+        <ul>
+            <li><img src="{{ avatar_url }}" /></li>
+            <li><label>用&nbsp;户&nbsp;名</label><input type="text" name="username" readonly /></li>
+            <li><label>电子邮箱</label><input type="text" name="email" readonly /></li>
+            <li><label>注册日期</label><input type="text" name="rtime" readonly /></li>
+            
+    </div>
+    </div>
+{% endblock %}

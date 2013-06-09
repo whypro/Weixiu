@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, g, render_template, request, flash, redirect, url_for, session
-import MySQLdb
+import MySQLdb, StringIO
+from hashlib import md5
 
 from validate_code import create_validate_code
-import StringIO
 
 # 数据库配置
 DB_HOST = 'localhost'
@@ -41,14 +41,17 @@ def teardown_request(exception):
 #def after_request():
 #    g.db.close()
 
+# 首页
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# 重装系统页面
 @app.route('/os/')
 def show_os():
     return render_template('os.html')
 
+# 各系统介绍页面
 from flask import abort
 @app.route('/os/<os>/')
 def show_os_info(os):
@@ -58,6 +61,7 @@ def show_os_info(os):
     except:
         abort(404)
 
+# 留言页面
 @app.route('/guestbook/', methods=['GET', 'POST'])
 def leave_message():
     error = None
@@ -77,6 +81,8 @@ def leave_message():
             flash(u'留言成功，3 秒钟内将返回首页……')
             return render_template('flash.html', target='index')
     else:
+        # 分页
+        print request.args.get('page')
         if session.get('logged_in'):
             cur = g.db.cursor()
             cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
@@ -87,6 +93,7 @@ def leave_message():
     
     return render_template('guestbook.html', messages=messages, error=error)
 
+# 登录页面
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     error = None
@@ -106,6 +113,7 @@ def login():
 
     return render_template('login.html', error=error)
 
+# 注销
 @app.route('/logout/')
 def logout():
     session.pop('logged_in', None)
@@ -114,6 +122,7 @@ def logout():
     return render_template('flash.html')
 
 
+# 注册页面
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     error = None
@@ -134,10 +143,11 @@ def register():
                 
     return render_template('register.html', error=error)
 
+# 获取验证码
 @app.route('/code/')
 def get_code():
     #把strs发给前端,或者在后台使用session保存
-    code_img, strs = create_validate_code()
+    code_img, strs = create_validate_code(size=(100, 24), img_type="PNG")
     buf = StringIO.StringIO()
     code_img.save(buf,'PNG')
 
@@ -147,6 +157,26 @@ def get_code():
     response.headers['Content-Type'] = 'image/png'
     return response
 
+# 获取头像
+def get_avatar(email, size):
+    return 'http://www.gravatar.com/avatar/' + md5(email.lower()).hexdigest() + '?d=mm&s=' + str(size)
+
+# 个人信息页面
+@app.route('/profile/')
+def show_profile():
+    if session.get('logged_in'):
+        avatar_url = ''
+        cur = g.db.cursor()
+        cur.execute('select email from people where username=%s', session.get('username'))
+        if cur.rowcount > 0:
+            email = cur.fetchone()[0]
+            if email:
+                avatar_url = get_avatar(email, 140)
+            return render_template('profile.html', avatar_url = avatar_url)
+    else:
+        return redirect(url_for('login'))
+
+# 加入我们页面        
 @app.route('/join_us/')
 def join_us():
     return render_template('join-us.html')
