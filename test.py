@@ -2,6 +2,7 @@
 from flask import Flask, g, render_template, request, flash, redirect, url_for, session
 import MySQLdb, StringIO
 from hashlib import md5
+from urllib import urlencode
 
 from validate_code import create_validate_code
 
@@ -178,7 +179,10 @@ def get_code():
 
 # 获取头像
 def get_avatar(email, size):
-    return 'http://www.gravatar.com/avatar/' + md5(email.lower()).hexdigest() + '?d=mm&s=' + str(size)
+    default = 'http://www.gravatar.com/avatar/00000000000000000000000000000000/?size=210'
+    gravatar_url = 'http://www.gravatar.com/avatar/' + md5(email.lower()).hexdigest() + "?"
+    gravatar_url += urlencode({'d': default, 's': str(size)})
+    return gravatar_url
 
 # 个人信息页面
 @app.route('/profile/')
@@ -187,12 +191,15 @@ def show_profile():
         avatar_url = ''
         username = session.get('username')
         cur = g.db.cursor()
-        cur.execute('select email from people where username=%s', username)
+        cur.execute('select email, reg_time from people where username=%s', username)
         if cur.rowcount > 0:
-            email = cur.fetchone()[0]
-            user = dict(username = username, email=email)
-            if email:
-                avatar_url = get_avatar(email, 210)
+            row = cur.fetchone()
+            email = row[0]
+            if not email:
+                email = ''
+            reg_time = row[1].strftime('%Y-%m-%d')
+            user = dict(username = username, email=email, reg_time=reg_time)
+            avatar_url = get_avatar(email, 210)
             return render_template('profile.html', user=user, avatar_url=avatar_url)
     else:
         return redirect(url_for('login'))
