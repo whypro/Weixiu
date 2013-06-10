@@ -3,7 +3,6 @@ from flask import Flask, g, render_template, request, flash, redirect, url_for, 
 import MySQLdb, StringIO
 from hashlib import md5
 from urllib import urlencode
-
 from validate_code import create_validate_code
 
 # 数据库配置

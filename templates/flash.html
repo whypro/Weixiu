@@ -1,11 +1,23 @@
-<!doctype html>
-<meta http-equiv="refresh" content="3; url='{{ target }}'" />
-<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <div>{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+{% extends "base.html" %}
+{% block title %}
+<title>重定向 | 电脑维护 上门服务</title>
+{% endblock %}
+{% block body %}
+<div id="content">
+    <div class="post" style="text-align: center;">
+    <p>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div>{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </p>
+    <p><a href="{{ target }}">[立即跳转]</a></p>
+    </div>
+</div>
+<script language="javascript">
+setTimeout("document.location.href='{{ target }}'", 3000);
+</script>
+{% endblock %}
