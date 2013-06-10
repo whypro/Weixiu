@@ -4,18 +4,32 @@
 {% endblock %}
 {% block body %}
 <div id="content">
-    <div class="input">
-    <form method="POST" action="">
-    <ul>
+    <div class="post">
+    <form method="post" action="">
         {% if error %}
-        <li class="error">错&emsp;误：{{ error }}</li>
+        <div class="error">错误：{{ error }}</div>
         {% endif %}
-        <li><label>姓&emsp;名</label><input name="name" type="text"  /></li>
-        <li><label>邮&emsp;箱</label><input name="email" type="text" /></li>
-        <li><label>内&emsp;容</label><textarea name="content" rows="6" cols="60" placeholder="在此输入留言内容……"></textarea></li>
-        <li><label>验证码</label><input name="vcode" type="text" /><img src="{{ url_for('get_code') }}" onclick="this.src='{{ url_for('get_code') }}'" /></li>
-        <li><input name="submit" type="submit" value="留言" /></li>
-    </ul>
+        <div class="item">
+            <label>姓名</label>
+            <input class="basic-input" name="name" type="text" autocomplete="off" disableautocomplete />
+        </div>
+        <div class="item">
+            <label>邮箱</label>
+            <input class="basic-input" name="email" type="text" autocomplete="off" disableautocomplete />
+        </div>
+        <div class="item">
+            <label>内容</label>
+            <textarea name="content" rows="6" cols="60" placeholder="在此输入留言内容……"></textarea>
+        </div>
+        <div class="item">
+            <label>验证码</label>
+            <input class="basic-input" name="vcode" type="text" autocomplete="off" disableautocomplete />
+            <img class="captcha-img" src="{{ url_for('get_code') }}" onclick="this.src='{{ url_for('get_code') }}'" />
+        </div>
+        <div class="item-submit">
+            <label>&nbsp;</label>
+            <input class="btn-submit" name="submit" type="submit" value="留言" />
+        </div>
     </form>
     </div>
     {% if session.logged_in %}
@@ -27,6 +41,7 @@
             <span class="m_time">留言时间：{{ message.datetime }}</span>
             <span class="m_ip">IP 地址：{{ message.ip }}</span>
             <div class="m_content">内容：{{ message.content }}</div>
+            <div class="m_delete"><a href="{{ url_for('delete_message', id=message.id) }}">[删除]</a></div>
         </li>
     {% else %}
         <em>无留言</em>

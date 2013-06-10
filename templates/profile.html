@@ -4,13 +4,23 @@
 {% endblock %}
 {% block body %}
     <div id="content">
-    <div class="input">
-        <ul>
-            <li><img src="{{ avatar_url }}" /></li>
-            <li><label>用&nbsp;户&nbsp;名</label><input type="text" name="username" readonly /></li>
-            <li><label>电子邮箱</label><input type="text" name="email" readonly /></li>
-            <li><label>注册日期</label><input type="text" name="rtime" readonly /></li>
-            
+    <div class="post">
+        <div class="item">
+            <label>头像</label>
+            <img class="avatar-img" src="{{ avatar_url }}" />
+        </div>
+        <div class="item">
+            <label>用户名</label>
+            <input class="basic-input" type="text" name="username" readonly value="{{ user.username }}" />
+        </div>
+        <div class="item">
+            <label>电子邮箱</label>
+            <input class="basic-input" type="text" name="email" readonly value="{{ user.email }}"/>
+        </div>
+        <div class="item">
+            <label>注册日期</label>
+            <input class="basic-input" type="text" name="rtime" readonly /></li>
+        </div>
     </div>
     </div>
 {% endblock %}

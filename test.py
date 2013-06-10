@@ -82,20 +82,38 @@ def leave_message():
             return render_template('flash.html', target='index')
     else:
         # 分页
-        print request.args.get('page')
+        #print request.args.get('page')
         if session.get('logged_in'):
             cur = g.db.cursor()
             cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
             if cur.rowcount > 0:
                 cur = g.db.cursor()
-                cur.execute('select name, email, content, datetime, ip from message order by id desc')
-                messages = [dict(name=row[0], content=row[2], datetime=row[3], ip=row[4]) for row in cur.fetchall()]
-    
+                cur.execute('select id, name, email, content, datetime, ip from message order by id desc')
+                messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
     return render_template('guestbook.html', messages=messages, error=error)
+
+@app.route('/guestbook/delete/<int:id>/', methods=['GET'])
+def delete_message(id):
+    if request.method == 'GET':
+        if session.get('logged_in'):
+            cur = g.db.cursor()
+            cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
+            if cur.rowcount > 0:
+                cur.execute('delete from message where id=%s', id)
+                if cur.rowcount > 0:
+                    flash(u'删除成功，3 秒钟内将返回……')
+                    g.db.commit()
+                    return render_template('flash.html', target=url_for('leave_message'))
+    return redirect(url_for('leave_message'))
+
+
+
 
 # 登录页面
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
+    if session.get('logged_in'):
+        return redirect(url_for('index'))
     error = None
     if request.method == 'POST':
         if not request.form['username']:
@@ -107,9 +125,9 @@ def login():
                 error = u'用户名或密码不正确'
             else:
                 session['logged_in'] = True
-                session['username'] = request.form['username']
+                session['username'] = cur.fetchone()[0]
                 flash(u'登陆成功，3 秒钟内将返回首页……')
-                return render_template('flash.html')
+                return render_template('flash.html', target=url_for('index'))
 
     return render_template('login.html', error=error)
 
@@ -119,12 +137,14 @@ def logout():
     session.pop('logged_in', None)
     session.pop('username', None)
     flash(u'已注销，3 秒钟内将返回首页……')
-    return render_template('flash.html')
+    return render_template('flash.html', target=url_for('index'))
 
 
 # 注册页面
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
+    if session.get('logged_in'):
+        return redirect(url_for('index'))
     error = None
     if request.method == 'POST':
         if not request.form['username']:
@@ -134,13 +154,12 @@ def register():
             cur.execute('select username from people where username=%s', request.form['username'])
             row = cur.fetchone()
             if not row:
-                cur.execute('insert into people(username, password) values(%s, %s)', (request.form['username'], request.form['password']))
+                cur.execute('insert into people(username, password, email) values(%s, %s, %s)', (request.form['username'], request.form['password'], request.form['email']))
                 g.db.commit()
-                flash(u'注册成功，3 秒钟内将返回首页……')
-                return render_template('flash.html')
+                flash(u'注册成功，3 秒钟内将返回……')
+                return render_template('flash.html', target=url_for('login'))
             else:
                 error = u'用户名已存在'
-                
     return render_template('register.html', error=error)
 
 # 获取验证码
@@ -166,13 +185,15 @@ def get_avatar(email, size):
 def show_profile():
     if session.get('logged_in'):
         avatar_url = ''
+        username = session.get('username')
         cur = g.db.cursor()
-        cur.execute('select email from people where username=%s', session.get('username'))
+        cur.execute('select email from people where username=%s', username)
         if cur.rowcount > 0:
             email = cur.fetchone()[0]
+            user = dict(username = username, email=email)
             if email:
-                avatar_url = get_avatar(email, 140)
-            return render_template('profile.html', avatar_url = avatar_url)
+                avatar_url = get_avatar(email, 210)
+            return render_template('profile.html', user=user, avatar_url=avatar_url)
     else:
         return redirect(url_for('login'))
 
