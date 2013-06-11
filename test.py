@@ -61,6 +61,11 @@ def show_os_info(os):
     except:
         abort(404)
 
+# 家庭局域网页面
+@app.route('/network/')
+def show_home_network():
+    return render_template('home-network.html')
+        
 # 留言页面
 @app.route('/guestbook/', methods=['GET', 'POST'])
 def leave_message():
@@ -79,7 +84,7 @@ def leave_message():
             cur.execute('insert into message(name, email, content, ip) values(%s, %s, %s, %s)', (request.form['name'], request.form['email'], request.form['content'], request.remote_addr))
             g.db.commit()
             flash(u'留言成功，3 秒钟内将返回首页……')
-            return render_template('flash.html', target='index')
+            return render_template('flash.html', target=url_for('index'))
     else:
         # 分页
         #print request.args.get('page')
@@ -105,9 +110,6 @@ def delete_message(id):
                     g.db.commit()
                     return render_template('flash.html', target=url_for('leave_message'))
     return redirect(url_for('leave_message'))
-
-
-
 
 # 登录页面
 @app.route('/login/', methods=['GET', 'POST'])
@@ -210,4 +212,4 @@ def join_us():
     
 if __name__ == "__main__":
     app.debug = True
-    app.run()
+    app.run(host='0.0.0.0')
