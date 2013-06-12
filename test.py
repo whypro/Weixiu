@@ -150,7 +150,11 @@ def register():
     error = None
     if request.method == 'POST':
         if not request.form['username']:
-            error = u'用户名为空'
+            error = u'用户名不能为空'
+        elif not request.form['password']:
+            error = u'密码不能为空'
+        elif request.form['vcode'].upper() != session['validate'].upper():
+            error = u'验证码不正确'
         else:
             cur = g.db.cursor()
             cur.execute('select username from people where username=%s', request.form['username'])
@@ -209,7 +213,58 @@ def show_profile():
 @app.route('/join_us/')
 def join_us():
     return render_template('join-us.html')
+
     
+@app.route('/goods/', methods=['GET'])
+def show_goods():
+    goods = []
+    cur = g.db.cursor()
+    cur.execute('select number, name, detail, brand from goods')
+    if cur.rowcount > 0:
+        goods = [dict(number=row[0], name=row[1], detail=row[2], brand=row[3]) for row in cur.fetchall()]
+    return render_template('goods.html', goods=goods)
+        
+
+@app.route('/goods/<int:number>/', methods=['GET'])
+def show_goods_detail(number):
+    cur = g.db.cursor()
+    cur.execute('select name, detail from goods where number=%s', number)
+    if cur.rowcount > 0:
+        row = cur.fetchone()
+        name = row[0]
+        detail = row[1]
+        return render_template('goods-detail.html', name=name, detail=detail)
+    else:
+        abort(404)
+        
+@app.route('/goods/add/', methods=['GET', 'POST'])
+def add_goods():
+    if session.get('logged_in'):
+        cur = g.db.cursor()
+        cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
+        if cur.rowcount > 0:
+            error = ''
+            if request.method == 'POST':
+                if not request.form['name']:
+                    error = u'商品名称不能为空'
+                elif not request.form['number']:
+                    error = u'商品编号不能为空'
+                elif request.form['vcode'].upper() != session['validate'].upper():
+                    error = u'验证码不正确'
+                else:
+                    cur.execute('insert into goods(number, name, detail, brand) values(%s, %s, %s, %s)', (request.form['number'], request.form['name'], request.form['detail'], request.form['brand']))
+                    g.db.commit()
+                    flash(u'添加成功，3 秒钟内将转到商品页面……')
+                    return render_template('flash.html', target=url_for('show_goods'))
+            return render_template('goods-add.html', error=error)
+        else:
+            flash(u'权限不足，3 秒钟内将转到首页……')
+            return render_template('flash.html', target=url_for('index'))
+    else:
+        flash(u'请先登录，3 秒钟内将转到登录页面……')
+        return render_template('flash.html', target=url_for('login'))
+        
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host='0.0.0.0')

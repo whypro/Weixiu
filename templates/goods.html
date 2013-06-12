@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}商品列表{% endblock %}
+{% block body %}
+<div id="content">
+    <div class="post">
+    <div class="goods">
+    <ul>
+    {% for gds in goods %}
+        <li>
+            <div class="g_name">商品名称：{{ gds.name }}</div>
+            <span class="g_number">商品编号：{{ gds.number }}</span>
+            <span class="g_brand">品牌：{{ gds.brand }}</span>
+            <div class="g_link"><a href="{{ url_for('show_goods_detail', number=gds.number) }}">[详细信息]</a></div>
+        </li>
+    {% else %}
+        <li><em>无商品</em></li>
+    {% endfor %}
+    </ul>
+    </div>
+    </div>
+</div>
+{% endblock %}
