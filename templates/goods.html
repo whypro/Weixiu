@@ -7,7 +7,7 @@
     <ul>
     {% for gds in goods %}
         <li>
-            <div class="g_name"><a href="{{ url_for('show_goods_detail', number=gds.number) }}">{{ gds.name }}</a></div>
+            <div class="g_name"><a href="{{ url_for('show_goods_detail', number=gds.number) }}" target="_blank">{{ gds.name }}</a></div>
             <span class="g_number">商品编号：{{ gds.number }}</span>
             <span class="g_brand">品牌：{{ gds.brand }}</span>
             <div class="g_photo"><a href="{{ url_for('show_goods_detail', number=gds.number) }}"><img src="{{ gds.photo }}" /></a></div>

@@ -3,7 +3,7 @@ from flask import Flask, g, render_template, request, flash, redirect, url_for, 
 import MySQLdb, StringIO
 from hashlib import md5
 from urllib import urlencode
-from validate_code import create_validate_code
+from captcha import create_captcha
 
 # 数据库配置
 DB_HOST = 'localhost'
@@ -89,9 +89,7 @@ def leave_message():
         # 分页
         #print request.args.get('page')
         if session.get('logged_in'):
-            cur = g.db.cursor()
-            cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-            if cur.rowcount > 0:
+            if is_admin(session.get('username')):
                 cur = g.db.cursor()
                 cur.execute('select id, name, email, content, datetime, ip from message order by id desc')
                 messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
@@ -100,12 +98,19 @@ def leave_message():
                 messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
     return render_template('guestbook.html', messages=messages, error=error)
 
+def is_admin(username):
+    cur = g.db.cursor()
+    cur.execute('select user_group from people where username=%s and user_group=%s', (username, 'admin'))
+    if cur.rowcount > 0:
+        return True
+    else:
+        return False
+    
 @app.route('/guestbook/delete/<int:id>/', methods=['GET'])
 def delete_message(id):
     if session.get('logged_in'):
-        cur = g.db.cursor()
-        cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-        if cur.rowcount > 0:
+        if is_admin(session.get('username')):
+            cur = g.db.cursor()
             cur.execute('delete from message where id=%s', id)
             if cur.rowcount > 0:
                 flash(u'删除成功，3 秒钟内将返回留言页面……')
@@ -176,10 +181,10 @@ def register():
     return render_template('register.html', error=error)
 
 # 获取验证码
-@app.route('/code/')
-def get_code():
+@app.route('/captcha/')
+def get_captcha():
     #把strs发给前端,或者在后台使用session保存
-    code_img, strs = create_validate_code(size=(100, 24), img_type="PNG")
+    code_img, strs = create_captcha(size=(100, 24), img_type="PNG")
     buf = StringIO.StringIO()
     code_img.save(buf,'PNG')
 
@@ -229,12 +234,7 @@ def show_goods():
     cur.execute('select goods.id, number, name, brand, url from goods left join goods_photo on goods.id = goods_photo.goods_id group by goods.id')
     if cur.rowcount > 0:
         goods = [dict(id=row[0], number=row[1], name=row[2], brand=row[3], photo=row[4]) for row in cur.fetchall()]
-    cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-    if cur.rowcount > 0:
-        show_manage_btn = True
-    else:
-        show_manage_btn = False
-    return render_template('goods.html', goods=goods, show_manage_btn=show_manage_btn)
+    return render_template('goods.html', goods=goods, show_manage_btn=is_admin(session.get('username')))
         
 
 @app.route('/goods/<int:number>/', methods=['GET'])
@@ -252,9 +252,7 @@ def show_goods_detail(number):
 @app.route('/goods/add/', methods=['GET', 'POST'])
 def add_goods():
     if session.get('logged_in'):
-        cur = g.db.cursor()
-        cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-        if cur.rowcount > 0:
+        if is_admin(session.get('username')):
             error = ''
             if request.method == 'POST':
                 if not request.form['name']:
@@ -264,6 +262,7 @@ def add_goods():
                 elif request.form['vcode'].upper() != session['validate'].upper():
                     error = u'验证码不正确'
                 else:
+                    cur = g.db.cursor()
                     cur.execute('insert into goods(number, name, detail, brand) values(%s, %s, %s, %s)', (request.form['number'], request.form['name'], request.form['detail'], request.form['brand']))
                     g.db.commit()
                     flash(u'添加成功，3 秒钟内将转到商品页面……')
@@ -280,9 +279,8 @@ def add_goods():
 @app.route('/goods/delete/<int:id>/', methods=['GET'])
 def delete_goods(id):
     if session.get('logged_in'):
-        cur = g.db.cursor()
-        cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-        if cur.rowcount > 0:
+        if is_admin(session.get('username')):
+            cur = g.db.cursor()
             cur.execute('delete from goods where id=%s', id)
             if cur.rowcount > 0:
                 flash(u'删除成功，3 秒钟内将返回商品页面……')

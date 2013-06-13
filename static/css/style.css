@@ -16,7 +16,7 @@ p, div, a {
     border-radius: 10px;
     margin: 0;
     padding: 0;
-    background: #FF6666;
+    background: #FB5A62;
 }
 
 #header h1 {
@@ -29,13 +29,26 @@ p, div, a {
     text-align: center;
 }
 
+a {
+    text-decoration: none;
+}
+
+#header a {
+    color: #333333;
+}
+
+#header a:active, #header a:hover {
+    background-color: #BF6266;
+    color: #FFFFFF;
+}
+
 #navigation {
     padding-right: 15px;
     padding-bottom: 10px;
     font-family: "Microsoft YaHei";
     font-size: 12pt;
     text-align: right;
-    
+    color: #333333; 
 }
 
 #content {
@@ -45,7 +58,16 @@ p, div, a {
     padding-right: 2em;
     padding-bottom: 10px;
     padding-top: 10px;
-    background: #FFFF66;
+    background: #FFFC7B;
+}
+
+#content a {
+    color: #333333;
+}
+
+#content a:active, #content a:hover {
+    background-color: #BEB868;
+    color: #FFFFFF;
 }
 
 #content h2 {
@@ -125,16 +147,6 @@ p, div, a {
 #contact_us p {
     margin-top: 1em;
     margin-bottom: 1em;
-}
-
-a {
-    text-decoration: none;
-    color: #000;
-}
-
-a:active, a:hover {
-    background-color: #99CC33;
-    color: #fff;
 }
 
 .return {

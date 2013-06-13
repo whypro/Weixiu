@@ -8,19 +8,19 @@ _upper_cases = _letter_cases.upper() # 大写字母
 _numbers = ''.join(map(str, range(3, 10))) # 数字
 init_chars = ''.join((_letter_cases, _upper_cases, _numbers))
  
-def create_validate_code(size=(120, 30),
-                         chars=init_chars,
-                         img_type="GIF",
-                         mode="RGB",
-                         bg_color=(255, 255, 255),
-                         fg_color=(0, 0, 255),
-                         font_size=18,
-                         font_type="comic.ttf",
-                         length=4,
-                         draw_lines=True,
-                         n_line=(1, 2),
-                         draw_points=True,
-                         point_chance = 2):
+def create_captcha(size=(120, 30),
+                    chars=init_chars,
+                    img_type="GIF",
+                    mode="RGB",
+                    bg_color=(255, 255, 255),
+                    fg_color=(0, 0, 255),
+                    font_size=18,
+                    font_type="comic.ttf",
+                    length=4,
+                    draw_lines=True,
+                    n_line=(1, 2),
+                    draw_points=True,
+                    point_chance = 2):
     '''
     @todo: 生成验证码图片
     @param size: 图片的大小，格式（宽，高），默认为(120, 30)
@@ -105,5 +105,5 @@ def create_validate_code(size=(120, 30),
     return img, strs
  
 if __name__ == "__main__":
-    code_img, strs = create_validate_code()
+    code_img, strs = create_captcha()
     code_img.save("D:\\validate.gif", "GIF")
