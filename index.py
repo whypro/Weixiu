@@ -96,22 +96,30 @@ def leave_message():
                 cur = g.db.cursor()
                 cur.execute('select id, name, email, content, datetime, ip from message order by id desc')
                 messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
+            else:
+                cur.execute('select id, name, email, content, datetime, ip from message where name=%s order by id desc', session.get('username'))
+                messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
     return render_template('guestbook.html', messages=messages, error=error)
 
 @app.route('/guestbook/delete/<int:id>/', methods=['GET'])
 def delete_message(id):
-    if request.method == 'GET':
-        if session.get('logged_in'):
-            cur = g.db.cursor()
-            cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
+    if session.get('logged_in'):
+        cur = g.db.cursor()
+        cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
+        if cur.rowcount > 0:
+            cur.execute('delete from message where id=%s', id)
             if cur.rowcount > 0:
-                cur.execute('delete from message where id=%s', id)
-                if cur.rowcount > 0:
-                    flash(u'删除成功，3 秒钟内将返回……')
-                    g.db.commit()
-                    return render_template('flash.html', target=url_for('leave_message'))
-    return redirect(url_for('leave_message'))
-
+                flash(u'删除成功，3 秒钟内将返回留言页面……')
+                g.db.commit()
+        else:
+            flash(u'权限不足，3 秒钟内将返回留言页面……')
+            # abort(404)
+        return render_template('flash.html', target=url_for('leave_message'))
+    else:
+        # flash(u'请先登录，3 秒钟内将转到登录页面……')
+        # return render_template('flash.html', target=url_for('login'))
+        abort(404)
+        
 # 登录页面
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -120,7 +128,7 @@ def login():
     error = None
     if request.method == 'POST':
         if not request.form['username']:
-            error = u'用户名为空'
+            error = u'用户名不能为空'
         else:
             cur = g.db.cursor()
             cur.execute('select username from people where username=%s and password=%s', (request.form['username'], request.form['password']))
@@ -131,7 +139,6 @@ def login():
                 session['username'] = cur.fetchone()[0]
                 flash(u'登陆成功，3 秒钟内将返回首页……')
                 return render_template('flash.html', target=url_for('index'))
-
     return render_template('login.html', error=error)
 
 # 注销
@@ -163,7 +170,7 @@ def register():
             if not row:
                 cur.execute('insert into people(username, password, email) values(%s, %s, %s)', (request.form['username'], request.form['password'], request.form['email']))
                 g.db.commit()
-                flash(u'注册成功，3 秒钟内将返回……')
+                flash(u'注册成功，3 秒钟内将转到登陆页面……')
                 return render_template('flash.html', target=url_for('login'))
             else:
                 error = u'用户名已存在'
@@ -211,7 +218,7 @@ def show_profile():
         return redirect(url_for('login'))
 
 # 加入我们页面        
-@app.route('/join_us/')
+@app.route('/join/')
 def join_us():
     return render_template('join-us.html')
 
@@ -220,10 +227,15 @@ def join_us():
 def show_goods():
     goods = []
     cur = g.db.cursor()
-    cur.execute('select number, name, detail, brand from goods')
+    cur.execute('select goods.id, number, name, brand, url from goods left join goods_photo on goods.id = goods_photo.goods_id group by goods.id')
     if cur.rowcount > 0:
-        goods = [dict(number=row[0], name=row[1], detail=row[2], brand=row[3]) for row in cur.fetchall()]
-    return render_template('goods.html', goods=goods)
+        goods = [dict(id=row[0], number=row[1], name=row[2], brand=row[3], photo=row[4]) for row in cur.fetchall()]
+    cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
+    if cur.rowcount > 0:
+        show_manage_btn = True
+    else:
+        show_manage_btn = False
+    return render_template('goods.html', goods=goods, show_manage_btn=show_manage_btn)
         
 
 @app.route('/goods/<int:number>/', methods=['GET'])
@@ -262,8 +274,43 @@ def add_goods():
             flash(u'权限不足，3 秒钟内将转到首页……')
             return render_template('flash.html', target=url_for('index'))
     else:
-        flash(u'请先登录，3 秒钟内将转到登录页面……')
-        return render_template('flash.html', target=url_for('login'))
+        # flash(u'请先登录，3 秒钟内将转到登录页面……')
+        # return render_template('flash.html', target=url_for('login'))
+        abort(404)
+        
+@app.route('/goods/delete/<int:id>/', methods=['GET'])
+def delete_goods(id):
+    if session.get('logged_in'):
+        cur = g.db.cursor()
+        cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
+        if cur.rowcount > 0:
+            cur.execute('delete from goods where id=%s', id)
+            if cur.rowcount > 0:
+                flash(u'删除成功，3 秒钟内将返回商品页面……')
+                g.db.commit()
+        else:
+            flash(u'权限不足，3 秒钟内将返回商品页面……')
+        return render_template('flash.html', target=url_for('show_goods'))
+    else:
+        # flash(u'请先登录，3 秒钟内将转到登录页面……')
+        # return render_template('flash.html', target=url_for('login'))
+        abort(404)
+        
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.route('/404/')
+def test_404():
+    abort(404)
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
+
+@app.route('/500/')
+def test_500():
+    abort(500)
     
 
 from bae.core.wsgi import WSGIApplication

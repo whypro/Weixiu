@@ -299,6 +299,18 @@ def delete_goods(id):
 def page_not_found(e):
     return render_template('404.html'), 404
 
+@app.route('/404/')
+def test_404():
+    abort(404)
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
+
+@app.route('/500/')
+def test_500():
+    abort(500)
+    
 if __name__ == "__main__":
     app.debug = True
     app.run(host='0.0.0.0')
