@@ -12,33 +12,6 @@ p, div, a {
     color: #f00
 }
 
-.messages .m_name {
-    font-size: 16pt;
-    font-weight: bold; 
-    margin-bottom: 10px;
-}
-
-.messages .m_time {
-    font-size: 10pt;
-}
-
-.messages .m_content {
-    font-size: 12pt;
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
-
-.messages .m_ip {
-    font-size: 10pt;
-}
-
-.messages li {
-    list-style-type: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-top: solid 2px #ccc;
-}
-
 #header {
     border-radius: 10px;
     margin: 0;
@@ -244,4 +217,61 @@ textarea {
 .btn-submit:hover {
     background-color: #4fca6c;
     border-color: #6aad54;
+}
+
+.messages .m_name {
+    font-size: 16pt;
+    font-weight: bold; 
+    margin-bottom: 10px;
+}
+
+.messages .m_time {
+    font-size: 10pt;
+}
+
+.messages .m_content {
+    font-size: 12pt;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.messages .m_ip {
+    font-size: 10pt;
+}
+
+.messages li {
+    list-style-type: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: solid 2px #ccc;
+}
+
+.goods .g_name {
+    font-size: 16pt;
+    font-weight: bold; 
+    margin-bottom: 10px;
+}
+
+.goods .g_number {
+    font-size: 10pt;
+}
+
+.goods .g_brand {
+    font-size: 10pt;
+}
+
+.goods .g_photo {
+    margin: 10px 0 10px 0;
+}
+
+.goods .g_photo img {
+    width: 120px;
+    vertical-align: middle; 
+}
+
+.goods li {
+    list-style-type: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: solid 2px #ccc;
 }
