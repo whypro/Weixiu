@@ -13,7 +13,7 @@ p, div, a {
 }
 
 #header {
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     margin: 0;
     padding: 0;
     background: #FB5A62;
@@ -52,7 +52,6 @@ a {
 }
 
 #content {
-    border-radius: 10px;
     font-family: "Microsoft YaHei";
     margin: 0;
     padding-right: 2em;
@@ -119,7 +118,6 @@ a {
 }
 
 #serving_dist {
-    border-radius: 10px;
     margin: 0;
     padding: 5px;
     font-family: 方正少儿_GBK;
@@ -134,7 +132,7 @@ a {
 }
 
 #contact_us {
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px;
     margin: 0;
     padding: 5px;
     padding-left: 2em;

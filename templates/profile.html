@@ -3,22 +3,28 @@
 {% block body %}
     <div id="content">
     <div class="post">
-        <div class="item">
-            <label>头像</label>
-            <img class="avatar-img" src="{{ avatar_url }}" />
-        </div>
-        <div class="item">
-            <label>用户名</label>
-            <input class="basic-input" type="text" name="username" readonly value="{{ user.username }}" />
-        </div>
-        <div class="item">
-            <label>电子邮箱</label>
-            <input class="basic-input" type="text" name="email" readonly value="{{ user.email }}"/>
-        </div>
-        <div class="item">
-            <label>注册日期</label>
-            <input class="basic-input" type="text" name="rtime" readonly value="{{ user.reg_time }}" />
-        </div>
+        <form method="post">
+            <div class="item">
+                <label>头像</label>
+                <img class="avatar-img" src="{{ avatar_url }}" />
+            </div>
+            <div class="item">
+                <label>用户名</label>
+                <input class="basic-input" type="text" name="username" readonly value="{{ user.username }}" />
+            </div>
+            <div class="item">
+                <label>电子邮箱</label>
+                <input class="basic-input" type="text" name="email" value="{{ user.email }}"/>
+            </div>
+            <div class="item">
+                <label>注册日期</label>
+                <input class="basic-input" type="text" name="rtime" readonly value="{{ user.reg_time }}" />
+            </div>
+            <div class="item-submit">
+                <label>&nbsp;</label>
+                <input class="btn-submit" name="submit" type="submit" value="更改" />
+            </div>
+        </form>
     </div>
     </div>
 {% endblock %}

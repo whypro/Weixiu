@@ -9,11 +9,19 @@
         {% endif %}
         <div class="item">
             <label>姓名</label>
+            {% if pre_val %}
+            <input class="basic-input" name="name" type="text" readonly value="{{ pre_val.name }}" />
+            {% else %}
             <input class="basic-input" name="name" type="text" autocomplete="off" disableautocomplete />
+            {% endif %}
         </div>
         <div class="item">
             <label>邮箱</label>
+            {% if pre_val %}
+            <input class="basic-input" name="email" type="text" readonly value="{{ pre_val.email }}" />
+            {% else %}
             <input class="basic-input" name="email" type="text" autocomplete="off" disableautocomplete />
+            {% endif %}
         </div>
         <div class="item">
             <label>内容</label>

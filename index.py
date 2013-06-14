@@ -1,9 +1,9 @@
-#-*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 from flask import Flask, g, render_template, request, flash, redirect, url_for, session
 import MySQLdb, StringIO
 from hashlib import md5
 from urllib import urlencode
-from validate_code import create_validate_code
+from captcha import create_captcha
 
 from bae.core import const
 
@@ -68,10 +68,19 @@ def show_home_network():
     return render_template('home-network.html')
         
 # 留言页面
+# ################################################
+# TODO: 此函数需要优化！！！
 @app.route('/guestbook/', methods=['GET', 'POST'])
 def leave_message():
     error = None
     messages = []
+    pre_val = None
+    if session.get('logged_in'):
+        cur = g.db.cursor()
+        cur.execute('select username, email from people where username=%s', session.get('username'))
+        row = cur.fetchone()
+        pre_val = dict(name=row[0], email=row[1])
+        
     if request.method == 'POST':
         if not request.form['name']:
             error = u'姓名不能为空'
@@ -82,7 +91,10 @@ def leave_message():
         else:
             # 前台验证通过
             cur = g.db.cursor()
-            cur.execute('insert into message(name, email, content, ip) values(%s, %s, %s, %s)', (request.form['name'], request.form['email'], request.form['content'], request.remote_addr))
+            cur.execute('select id from people where username=%s', session.get('username'))
+            id = cur.fetchone()[0]
+            cur = g.db.cursor()
+            cur.execute('insert into message(people_id, name, email, content, ip) values(%s, %s, %s, %s, %s)', (id, request.form['name'], request.form['email'], request.form['content'], request.remote_addr))
             g.db.commit()
             flash(u'留言成功，3 秒钟内将返回首页……')
             return render_template('flash.html', target=url_for('index'))
@@ -90,23 +102,27 @@ def leave_message():
         # 分页
         #print request.args.get('page')
         if session.get('logged_in'):
-            cur = g.db.cursor()
-            cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-            if cur.rowcount > 0:
-                cur = g.db.cursor()
+            if is_admin(session.get('username')):
                 cur.execute('select id, name, email, content, datetime, ip from message order by id desc')
                 messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
             else:
                 cur.execute('select id, name, email, content, datetime, ip from message where name=%s order by id desc', session.get('username'))
                 messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
-    return render_template('guestbook.html', messages=messages, error=error)
+    return render_template('guestbook.html', messages=messages, pre_val=pre_val, error=error)
 
+def is_admin(username):
+    cur = g.db.cursor()
+    cur.execute('select user_group from people where username=%s and user_group=%s', (username, 'admin'))
+    if cur.rowcount > 0:
+        return True
+    else:
+        return False
+    
 @app.route('/guestbook/delete/<int:id>/', methods=['GET'])
 def delete_message(id):
     if session.get('logged_in'):
-        cur = g.db.cursor()
-        cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-        if cur.rowcount > 0:
+        if is_admin(session.get('username')):
+            cur = g.db.cursor()
             cur.execute('delete from message where id=%s', id)
             if cur.rowcount > 0:
                 flash(u'删除成功，3 秒钟内将返回留言页面……')
@@ -177,10 +193,10 @@ def register():
     return render_template('register.html', error=error)
 
 # 获取验证码
-@app.route('/code/')
-def get_code():
+@app.route('/captcha/')
+def get_captcha():
     #把strs发给前端,或者在后台使用session保存
-    code_img, strs = create_validate_code(size=(100, 24), img_type="PNG")
+    code_img, strs = create_captcha(size=(100, 24), img_type="PNG")
     buf = StringIO.StringIO()
     code_img.save(buf,'PNG')
 
@@ -198,24 +214,34 @@ def get_avatar(email, size):
     return gravatar_url
 
 # 个人信息页面
-@app.route('/profile/')
+@app.route('/profile/', methods=['GET', 'POST'])
 def show_profile():
-    if session.get('logged_in'):
-        avatar_url = ''
-        username = session.get('username')
-        cur = g.db.cursor()
-        cur.execute('select email, reg_time from people where username=%s', username)
-        if cur.rowcount > 0:
-            row = cur.fetchone()
-            email = row[0]
-            if not email:
-                email = ''
-            reg_time = row[1].strftime('%Y-%m-%d')
-            user = dict(username = username, email=email, reg_time=reg_time)
-            avatar_url = get_avatar(email, 210)
-            return render_template('profile.html', user=user, avatar_url=avatar_url)
+    if request.method == 'POST':
+        if session.get('logged_in'):
+            cur = g.db.cursor()
+            cur.execute('update people set email=%s where username=%s', (request.form['email'], session.get('username')))
+            g.db.commit()
+            flash(u'更改成功，3 秒钟内将转到个人页面……')
+            return render_template('flash.html', target=url_for('show_profile'))
+        else:
+            return redirect(url_for('login'))
     else:
-        return redirect(url_for('login'))
+        if session.get('logged_in'):
+            avatar_url = ''
+            username = session.get('username')
+            cur = g.db.cursor()
+            cur.execute('select email, reg_time from people where username=%s', username)
+            if cur.rowcount > 0:
+                row = cur.fetchone()
+                email = row[0]
+                if not email:
+                    email = ''
+                reg_time = row[1].strftime('%Y-%m-%d')
+                user = dict(username = username, email=email, reg_time=reg_time)
+                avatar_url = get_avatar(email, 210)
+                return render_template('profile.html', user=user, avatar_url=avatar_url)
+        else:
+            return redirect(url_for('login'))
 
 # 加入我们页面        
 @app.route('/join/')
@@ -230,12 +256,7 @@ def show_goods():
     cur.execute('select goods.id, number, name, brand, url from goods left join goods_photo on goods.id = goods_photo.goods_id group by goods.id')
     if cur.rowcount > 0:
         goods = [dict(id=row[0], number=row[1], name=row[2], brand=row[3], photo=row[4]) for row in cur.fetchall()]
-    cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-    if cur.rowcount > 0:
-        show_manage_btn = True
-    else:
-        show_manage_btn = False
-    return render_template('goods.html', goods=goods, show_manage_btn=show_manage_btn)
+    return render_template('goods.html', goods=goods, show_manage_btn=is_admin(session.get('username')))
         
 
 @app.route('/goods/<int:number>/', methods=['GET'])
@@ -253,9 +274,7 @@ def show_goods_detail(number):
 @app.route('/goods/add/', methods=['GET', 'POST'])
 def add_goods():
     if session.get('logged_in'):
-        cur = g.db.cursor()
-        cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-        if cur.rowcount > 0:
+        if is_admin(session.get('username')):
             error = ''
             if request.method == 'POST':
                 if not request.form['name']:
@@ -265,6 +284,7 @@ def add_goods():
                 elif request.form['vcode'].upper() != session['validate'].upper():
                     error = u'验证码不正确'
                 else:
+                    cur = g.db.cursor()
                     cur.execute('insert into goods(number, name, detail, brand) values(%s, %s, %s, %s)', (request.form['number'], request.form['name'], request.form['detail'], request.form['brand']))
                     g.db.commit()
                     flash(u'添加成功，3 秒钟内将转到商品页面……')
@@ -281,9 +301,8 @@ def add_goods():
 @app.route('/goods/delete/<int:id>/', methods=['GET'])
 def delete_goods(id):
     if session.get('logged_in'):
-        cur = g.db.cursor()
-        cur.execute('select user_group from people where username=%s and user_group=%s', (session.get('username'), 'admin'))
-        if cur.rowcount > 0:
+        if is_admin(session.get('username')):
+            cur = g.db.cursor()
             cur.execute('delete from goods where id=%s', id)
             if cur.rowcount > 0:
                 flash(u'删除成功，3 秒钟内将返回商品页面……')
@@ -311,7 +330,14 @@ def internal_server_error(e):
 @app.route('/500/')
 def test_500():
     abort(500)
-    
 
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template('403.html'), 403
+
+@app.route('/403/')
+def test_403():
+    abort(403)
+    
 from bae.core.wsgi import WSGIApplication
 application = WSGIApplication(app)

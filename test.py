@@ -71,6 +71,13 @@ def show_home_network():
 def leave_message():
     error = None
     messages = []
+    pre_val = None
+    if session.get('logged_in'):
+        cur = g.db.cursor()
+        cur.execute('select username, email from people where username=%s', session.get('username'))
+        row = cur.fetchone()
+        pre_val = dict(name=row[0], email=row[1])
+        
     if request.method == 'POST':
         if not request.form['name']:
             error = u'姓名不能为空'
@@ -81,7 +88,10 @@ def leave_message():
         else:
             # 前台验证通过
             cur = g.db.cursor()
-            cur.execute('insert into message(name, email, content, ip) values(%s, %s, %s, %s)', (request.form['name'], request.form['email'], request.form['content'], request.remote_addr))
+            cur.execute('select id from people where username=%s', session.get('username'))
+            id = cur.fetchone()[0]
+            cur = g.db.cursor()
+            cur.execute('insert into message(people_id, name, email, content, ip) values(%s, %s, %s, %s, %s)', (id, request.form['name'], request.form['email'], request.form['content'], request.remote_addr))
             g.db.commit()
             flash(u'留言成功，3 秒钟内将返回首页……')
             return render_template('flash.html', target=url_for('index'))
@@ -90,13 +100,12 @@ def leave_message():
         #print request.args.get('page')
         if session.get('logged_in'):
             if is_admin(session.get('username')):
-                cur = g.db.cursor()
                 cur.execute('select id, name, email, content, datetime, ip from message order by id desc')
                 messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
             else:
                 cur.execute('select id, name, email, content, datetime, ip from message where name=%s order by id desc', session.get('username'))
                 messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
-    return render_template('guestbook.html', messages=messages, error=error)
+    return render_template('guestbook.html', messages=messages, pre_val=pre_val, error=error)
 
 def is_admin(username):
     cur = g.db.cursor()
@@ -202,24 +211,34 @@ def get_avatar(email, size):
     return gravatar_url
 
 # 个人信息页面
-@app.route('/profile/')
+@app.route('/profile/', methods=['GET', 'POST'])
 def show_profile():
-    if session.get('logged_in'):
-        avatar_url = ''
-        username = session.get('username')
-        cur = g.db.cursor()
-        cur.execute('select email, reg_time from people where username=%s', username)
-        if cur.rowcount > 0:
-            row = cur.fetchone()
-            email = row[0]
-            if not email:
-                email = ''
-            reg_time = row[1].strftime('%Y-%m-%d')
-            user = dict(username = username, email=email, reg_time=reg_time)
-            avatar_url = get_avatar(email, 210)
-            return render_template('profile.html', user=user, avatar_url=avatar_url)
+    if request.method == 'POST':
+        if session.get('logged_in'):
+            cur = g.db.cursor()
+            cur.execute('update people set email=%s where username=%s', (request.form['email'], session.get('username')))
+            g.db.commit()
+            flash(u'更改成功，3 秒钟内将转到个人页面……')
+            return render_template('flash.html', target=url_for('show_profile'))
+        else:
+            return redirect(url_for('login'))
     else:
-        return redirect(url_for('login'))
+        if session.get('logged_in'):
+            avatar_url = ''
+            username = session.get('username')
+            cur = g.db.cursor()
+            cur.execute('select email, reg_time from people where username=%s', username)
+            if cur.rowcount > 0:
+                row = cur.fetchone()
+                email = row[0]
+                if not email:
+                    email = ''
+                reg_time = row[1].strftime('%Y-%m-%d')
+                user = dict(username = username, email=email, reg_time=reg_time)
+                avatar_url = get_avatar(email, 210)
+                return render_template('profile.html', user=user, avatar_url=avatar_url)
+        else:
+            return redirect(url_for('login'))
 
 # 加入我们页面        
 @app.route('/join/')
@@ -308,6 +327,14 @@ def internal_server_error(e):
 @app.route('/500/')
 def test_500():
     abort(500)
+
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template('403.html'), 403
+
+@app.route('/403/')
+def test_403():
+    abort(403)
     
 if __name__ == "__main__":
     app.debug = True
