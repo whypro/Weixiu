@@ -2,24 +2,24 @@
 {% block title %}登录{% endblock %}
 {% block body %}
     <div id="content">
-    <div class="post">
-    <form action="{{ url_for('login') }}" method="post" />
-        {% if error %}
-        <div class="error">错误：{{ error }}</div>
-        {% endif %}
-        <div class="item">
-            <label>用户名</label>
-            <input class="basic-input" type="text" name="username" autocomplete="off" disableautocomplete />
+        <div class="post">
+            <form action="{{ url_for('login') }}" method="post" />
+                {% if error %}
+                <div class="error">错误：{{ error }}</div>
+                {% endif %}
+                <div class="item">
+                    <label>用户名</label>
+                    <input class="basic-input" type="text" name="username" autocomplete="off" disableautocomplete />
+                </div>
+                <div class="item">
+                    <label>密码</label>
+                    <input class="basic-input" type="password" name="password" />
+                </div>
+                <div class="item-submit">
+                    <label>&nbsp;</label>
+                    <input class="btn-submit" type="submit" value="登录" />
+                </div>
+            </form>
         </div>
-        <div class="item">
-            <label>密码</label>
-            <input class="basic-input" type="password" name="password" />
-        </div>
-        <div class="item-submit">
-            <label>&nbsp;</label>
-            <input class="btn-submit" type="submit" value="登录" />
-        </div>
-    </form>
-    </div>
     </div>
 {% endblock %}

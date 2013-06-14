@@ -1,28 +1,28 @@
 {% extends "base.html" %}
 {% block title %}商品列表{% endblock %}
 {% block body %}
-<div id="content">
-    <div class="post">
-    <div class="goods">
-    <ul>
-    {% for gds in goods %}
-        <li>
-            <div class="g_name"><a href="{{ url_for('show_goods_detail', number=gds.number) }}" target="_blank">{{ gds.name }}</a></div>
-            <span class="g_number">商品编号：{{ gds.number }}</span>
-            <span class="g_brand">品牌：{{ gds.brand }}</span>
-            <div class="g_photo"><a href="{{ url_for('show_goods_detail', number=gds.number) }}"><img src="{{ gds.photo }}" /></a></div>
-            {% if session.logged_in and show_manage_btn %}
-            <div class="g_delete"><a href="{{ url_for('delete_goods', id=gds.id) }}">[删除]</a></div>
-            {% endif %}
-        </li>
-    {% else %}
-        <li><em>无商品</em></li>
-    {% endfor %}
-    {% if session.logged_in and show_manage_btn %}
-        <li><a href="{{ url_for('add_goods') }}">[增加商品]</a></li>
-    {% endif %}
-    </ul>
+    <div id="content">
+        <div class="post">
+            <div class="goods">
+                <ul>
+                    {% for gds in goods %}
+                    <li>
+                        <div class="g_name"><a href="{{ url_for('show_goods_detail', number=gds.number) }}" target="_blank">{{ gds.name }}</a></div>
+                        <span class="g_number">商品编号：{{ gds.number }}</span>
+                        <span class="g_brand">品牌：{{ gds.brand }}</span>
+                        <div class="g_photo"><a href="{{ url_for('show_goods_detail', number=gds.number) }}"><img src="{{ gds.photo }}" /></a></div>
+                        {% if session.logged_in and show_manage_btn %}
+                        <div class="g_delete"><a href="{{ url_for('delete_goods', id=gds.id) }}">[删除]</a></div>
+                        {% endif %}
+                    </li>
+                    {% else %}
+                    <li><em>无商品</em></li>
+                    {% endfor %}
+                    {% if session.logged_in and show_manage_btn %}
+                    <li><a href="{{ url_for('add_goods') }}">[增加商品]</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
     </div>
-    </div>
-</div>
 {% endblock %}

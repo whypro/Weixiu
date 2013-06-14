@@ -1,11 +1,11 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>{% block title %}{% endblock %}&nbsp;|&nbsp;电脑维护&nbsp;上门服务</title>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
-<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}&nbsp;|&nbsp;电脑维护&nbsp;上门服务</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
 </head>
 <body>
 <div id="canvas">
@@ -26,7 +26,6 @@
             {% endif %}
             <a href="{{ url_for('leave_message') }}">留言板</a>&nbsp;|&nbsp;
             <a href="{{ url_for('join_us') }}">加入我们</a>
-            
         </div>
     </div>
     {% block body %}{% endblock %}
