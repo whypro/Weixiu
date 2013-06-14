@@ -294,7 +294,39 @@ def add_goods():
         # flash(u'请先登录，3 秒钟内将转到登录页面……')
         # return render_template('flash.html', target=url_for('login'))
         abort(404)
-        
+
+@app.route('/goods/modify/<int:id>/', methods=['GET', 'POST'])
+def modify_goods(id):
+    if session.get('logged_in'):
+        if is_admin(session.get('username')):
+            error = ''
+            cur = g.db.cursor()
+            cur.execute('select number, name, detail, brand from goods where id=%s', id)
+            row = cur.fetchone()
+            goods = dict(number=row[0], name=row[1], detail=row[2], brand=row[3]) 
+            if request.method == 'POST':
+                if not request.form['name']:
+                    error = u'商品名称不能为空'
+                elif not request.form['number']:
+                    error = u'商品编号不能为空'
+                elif request.form['vcode'].upper() != session['validate'].upper():
+                    error = u'验证码不正确'
+                else:
+                    cur = g.db.cursor()
+                    cur.execute('update goods set number=%s, name=%s, detail=%s, brand=%s where id=%s', (request.form['number'], request.form['name'], request.form['detail'], request.form['brand'], id))
+                    g.db.commit()
+                    flash(u'更新成功，3 秒钟内将转到商品页面……')
+                    return render_template('flash.html', target=url_for('show_goods'))
+            
+            return render_template('goods-modify.html', goods=goods, error=error)
+        else:
+            flash(u'权限不足，3 秒钟内将转到首页……')
+            return render_template('flash.html', target=url_for('index'))
+    else:
+        # flash(u'请先登录，3 秒钟内将转到登录页面……')
+        # return render_template('flash.html', target=url_for('login'))
+        abort(404)
+    
 @app.route('/goods/delete/<int:id>/', methods=['GET'])
 def delete_goods(id):
     if session.get('logged_in'):

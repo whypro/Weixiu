@@ -12,6 +12,7 @@
                         <span class="g_brand">品牌：{{ gds.brand }}</span>
                         <div class="g_photo"><a href="{{ url_for('show_goods_detail', number=gds.number) }}"><img src="{{ gds.photo }}" /></a></div>
                         {% if session.logged_in and show_manage_btn %}
+                        <div class="g_modify"><a href="{{ url_for('modify_goods', id=gds.id) }}">[修改]</a></div>
                         <div class="g_delete"><a href="{{ url_for('delete_goods', id=gds.id) }}">[删除]</a></div>
                         {% endif %}
                     </li>
