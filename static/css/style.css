@@ -229,6 +229,10 @@ textarea {
     border-color: #6aad54;
 }
 
+.messages {
+    margin: 20px 0 20px 0;
+}
+
 .messages .m_name {
     font-size: 16pt;
     font-weight: bold; 
@@ -249,11 +253,20 @@ textarea {
     font-size: 10pt;
 }
 
+.messages ul {
+    margin: 0;
+    padding: 0;
+}
+
 .messages li {
     list-style-type: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin: 0;
+    padding: 10px 0 10px 0;
     border-top: solid 2px #ccc;
+}
+
+.goods {
+    margin: 20px 0 20px 0;
 }
 
 .goods .g_name {
@@ -279,9 +292,12 @@ textarea {
     vertical-align: middle; 
 }
 
+.goods ul {
+    margin: 0;
+    padding: 0;
+}
 .goods li {
     list-style-type: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 0 10px 0;
     border-top: solid 2px #ccc;
 }

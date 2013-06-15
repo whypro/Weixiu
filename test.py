@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import division
+from math import ceil
 from flask import Flask, g, render_template, request, flash, redirect, url_for, session
 import MySQLdb, StringIO
 from hashlib import md5
@@ -67,8 +69,9 @@ def show_home_network():
     return render_template('home-network.html')
         
 # 留言页面
-@app.route('/guestbook/', methods=['GET', 'POST'])
-def leave_message():
+@app.route('/guestbook/', defaults={'page': 1}, methods=['GET', 'POST'])
+@app.route('/guestbook/page/<int:page>/', methods=['GET'])
+def leave_message(page):
     error = None
     messages = []
     pre_val = None
@@ -95,17 +98,28 @@ def leave_message():
             g.db.commit()
             flash(u'留言成功，3 秒钟内将返回首页……')
             return render_template('flash.html', target=url_for('index'))
-    else:
-        # 分页
-        #print request.args.get('page')
-        if session.get('logged_in'):
-            if is_admin(session.get('username')):
-                cur.execute('select id, name, email, content, datetime, ip from message order by id desc')
-                messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
-            else:
-                cur.execute('select id, name, email, content, datetime, ip from message where name=%s order by id desc', session.get('username'))
-                messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
-    return render_template('guestbook.html', messages=messages, pre_val=pre_val, error=error)
+
+    # 分页
+    messages_per_page = 5
+    offset = (page - 1) * messages_per_page
+    if session.get('logged_in'):
+        if is_admin(session.get('username')):
+            cur.execute('select id from message order by id desc')
+            total_messages = cur.rowcount
+            total_pages = int(ceil(total_messages / messages_per_page))
+            cur.execute('select id, name, email, content, datetime, ip from message order by id desc limit %s, %s', (offset, messages_per_page))
+            if page != 1 and not cur.rowcount:
+                abort(404)
+            messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
+        else:
+            cur.execute('select id from message where name=%s order by id desc', session.get('username'))
+            total_messages = cur.rowcount
+            total_pages = total_messages / messages_per_page
+            cur.execute('select id, name, email, content, datetime, ip from message where name=%s order by id desc limit %s, %s', session.get('username'), (offset, messages_per_page))
+            if page != 1 and not cur.rowcount:
+                abort(404)
+            messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
+    return render_template('guestbook.html', messages=messages, pre_val=pre_val, error=error, cur_page=page, total_pages=total_pages)
 
 def is_admin(username):
     cur = g.db.cursor()

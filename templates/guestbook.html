@@ -37,23 +37,32 @@
                     <input class="btn-submit" name="submit" type="submit" value="留言" />
                 </div>
             </form>
+        
+            {% if session.logged_in %}
+            <div class="messages">
+                <ul>
+                    {% for message in messages %}
+                    <li>
+                        <div class="m_name">姓名：{{ message.name }}</div>
+                        <span class="m_time">留言时间：{{ message.datetime }}</span>
+                        <span class="m_ip">IP 地址：{{ message.ip }}</span>
+                        <div class="m_content">内容：{{ message.content }}</div>
+                        <div class="m_delete"><a href="{{ url_for('delete_message', id=message.id) }}">[删除]</a></div>
+                    </li>
+                    {% else %}
+                    <li><em>无留言</em></li>
+                    {% endfor %}
+                </ul>
+                <div class="pagination">
+                    {% if cur_page > 1 %}
+                    <a href="{{ url_for('leave_message', page=cur_page-1) }}">上一页</a>
+                    {% endif %}
+                    {% if cur_page < total_pages %}
+                    <a href="{{ url_for('leave_message', page=cur_page+1) }}">下一页</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
         </div>
-        {% if session.logged_in %}
-        <div class="messages">
-            <ul>
-                {% for message in messages %}
-                <li>
-                    <div class="m_name">姓名：{{ message.name }}</div>
-                    <span class="m_time">留言时间：{{ message.datetime }}</span>
-                    <span class="m_ip">IP 地址：{{ message.ip }}</span>
-                    <div class="m_content">内容：{{ message.content }}</div>
-                    <div class="m_delete"><a href="{{ url_for('delete_message', id=message.id) }}">[删除]</a></div>
-                </li>
-                {% else %}
-                <li><em>无留言</em></li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
     </div>
 {% endblock %}
