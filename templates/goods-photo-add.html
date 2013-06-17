@@ -1,23 +1,23 @@
 {% extends "base.html" %}
-{% block title %}注册{% endblock %}
+{% block title %}添加商品图片{% endblock %}
 {% block body %}
     <div id="content">
         <div class="post">
-            <form action="{{ url_for('register') }}" method="post" />
+            <form method="post" action="">
                 {% if error %}
                 <div class="error">错误：{{ error }}</div>
                 {% endif %}
                 <div class="item">
-                    <label>用户名</label>
-                    <input class="basic-input" type="text" name="username" autocomplete="off" disableautocomplete />
+                    <label>图片1</label>
+                    <input class="basic-input" name="photo-1" type="url" autocomplete="off" disableautocomplete />
                 </div>
                 <div class="item">
-                    <label>密码</label>
-                    <input class="basic-input" type="password" name="password" />
+                    <label>图片2</label>
+                    <input class="basic-input" name="photo-2" type="url" autocomplete="off" disableautocomplete />
                 </div>
                 <div class="item">
-                    <label>邮箱</label>
-                    <input class="basic-input" type="email" name="email" autocomplete="off" disableautocomplete />
+                    <label>图片3</label>
+                    <input class="basic-input" name="photo-3" type="url" autocomplete="off" disableautocomplete />
                 </div>
                 <div class="item">
                     <label>验证码</label>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="item-submit">
                     <label>&nbsp;</label>
-                    <input class="btn-submit" type="submit" value="注册" /></li>
+                    <input class="btn-submit" name="submit" type="submit" value="添加" />
                 </div>
             </form>
         </div>

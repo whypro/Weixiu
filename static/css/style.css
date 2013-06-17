@@ -119,9 +119,10 @@ a {
 
 #serving_dist {
     margin: 0;
-    padding: 5px;
-    font-family: 方正少儿_GBK;
-    font-size: 16pt;
+    padding: 3px;
+    font-family: "仿宋";
+    font-size: 18pt;
+    font-weight: bold;
     text-align: center;
     background: #99CC33;
 }
@@ -300,4 +301,21 @@ textarea {
     list-style-type: none;
     padding: 10px 0 10px 0;
     border-top: solid 2px #ccc;
+}
+
+.goods-photo {
+    text-align: center;
+}
+
+.goods-photo ul, .goods-photo li {
+    margin: 0;
+    padding: 0;
+}
+
+.goods-photo li {
+    display: inline;
+}
+
+.goods-photo img {
+    width: 200px;
 }

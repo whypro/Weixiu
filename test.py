@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import division
 from math import ceil
 from flask import Flask, g, render_template, request, flash, redirect, url_for, session
@@ -14,6 +15,7 @@ DB_USERNAME = 'root'
 DB_PASSWORD = 'whypro'
 DB_CHARSET = 'utf8'
 DB_PORT = 3306
+
 # 
 DEBUG = True
 SECRET_KEY = 'development key'
@@ -75,6 +77,7 @@ def leave_message(page):
     error = None
     messages = []
     pre_val = None
+    total_pages = 0
     if session.get('logged_in'):
         cur = g.db.cursor()
         cur.execute('select username, email from people where username=%s', session.get('username'))
@@ -273,12 +276,15 @@ def show_goods():
 @app.route('/goods/<int:number>/', methods=['GET'])
 def show_goods_detail(number):
     cur = g.db.cursor()
-    cur.execute('select name, detail from goods where number=%s', number)
+    cur.execute('select id, number, name, price, detail, brand from goods where number=%s', number)
     if cur.rowcount > 0:
         row = cur.fetchone()
-        name = row[0]
-        detail = row[1]
-        return render_template('goods-detail.html', name=name, detail=detail)
+        goods = dict(id=row[0], number=row[1], name=row[2], price=row[3], detail=row[4], brand=row[5])
+        cur.execute('select url from goods_photo where goods_id=%s', goods['id'])
+        if cur.rowcount > 0:
+            rows = cur.fetchall()
+            goods['photos'] = [row[0] for row in rows]
+        return render_template('goods-detail.html', goods=goods)
     else:
         abort(404)
         
@@ -296,10 +302,10 @@ def add_goods():
                     error = u'验证码不正确'
                 else:
                     cur = g.db.cursor()
-                    cur.execute('insert into goods(number, name, detail, brand) values(%s, %s, %s, %s)', (request.form['number'], request.form['name'], request.form['detail'], request.form['brand']))
+                    cur.execute('insert into goods(number, name, price, detail, brand) values(%s, %s, %s, %s, %s)', (request.form['number'], request.form['name'], request.form['price'], request.form['detail'], request.form['brand']))
                     g.db.commit()
                     flash(u'添加成功，3 秒钟内将转到商品页面……')
-                    return render_template('flash.html', target=url_for('show_goods'))
+                    return render_template('flash.html', target=url_for('show_goods_detail', number=request.form['number']))
             return render_template('goods-add.html', error=error)
         else:
             flash(u'权限不足，3 秒钟内将转到首页……')
@@ -315,9 +321,9 @@ def modify_goods(id):
         if is_admin(session.get('username')):
             error = ''
             cur = g.db.cursor()
-            cur.execute('select number, name, detail, brand from goods where id=%s', id)
+            cur.execute('select number, name, price, detail, brand from goods where id=%s', id)
             row = cur.fetchone()
-            goods = dict(number=row[0], name=row[1], detail=row[2], brand=row[3]) 
+            goods = dict(number=row[0], name=row[1], price=row[2], detail=row[3], brand=row[4]) 
             if request.method == 'POST':
                 if not request.form['name']:
                     error = u'商品名称不能为空'
@@ -327,10 +333,10 @@ def modify_goods(id):
                     error = u'验证码不正确'
                 else:
                     cur = g.db.cursor()
-                    cur.execute('update goods set number=%s, name=%s, detail=%s, brand=%s where id=%s', (request.form['number'], request.form['name'], request.form['detail'], request.form['brand'], id))
+                    cur.execute('update goods set number=%s, name=%s, price=%s, detail=%s, brand=%s where id=%s', (request.form['number'], request.form['name'], request.form['price'], request.form['detail'], request.form['brand'], id))
                     g.db.commit()
                     flash(u'更新成功，3 秒钟内将转到商品页面……')
-                    return render_template('flash.html', target=url_for('show_goods'))
+                    return render_template('flash.html', target=url_for('show_goods_detail', number=request.form['number']))
             
             return render_template('goods-modify.html', goods=goods, error=error)
         else:
@@ -357,6 +363,36 @@ def delete_goods(id):
         # flash(u'请先登录，3 秒钟内将转到登录页面……')
         # return render_template('flash.html', target=url_for('login'))
         abort(404)
+
+        
+@app.route('/goods/<int:id>/photo/add/', methods=['GET', 'POST'])
+def add_goods_photo(id):
+    if session.get('logged_in'):
+        if is_admin(session.get('username')):
+            error = ''
+            if request.method == 'POST':
+                if not request.form['photo-1'] and not request.form['photo-2'] and not request.form['photo-3']:                
+                    error = u'图片地址不能为空'
+                elif request.form['vcode'].upper() != session['validate'].upper():
+                    error = u'验证码不正确'
+                else:
+                    cur = g.db.cursor()
+                    photos = [request.form['photo-1'], request.form['photo-2'], request.form['photo-3']]
+                    for photo in photos:
+                        if photo:
+                            cur.execute('insert into goods_photo(goods_id, url) values(%s, %s)', (id, photo))
+                    g.db.commit()
+                    flash(u'添加成功，3 秒钟内将转到商品页面……')
+                    return render_template('flash.html', target=url_for('show_goods'))
+            return render_template('goods-photo-add.html', error=error)
+        else:
+            flash(u'权限不足，3 秒钟内将转到首页……')
+            return render_template('flash.html', target=url_for('index'))
+    else:
+        # flash(u'请先登录，3 秒钟内将转到登录页面……')
+        # return render_template('flash.html', target=url_for('login'))
+        abort(404)
+        
         
 @app.errorhandler(404)
 def page_not_found(e):

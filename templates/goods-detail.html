@@ -1,9 +1,23 @@
 {% extends "base.html" %}
-{% block title %}{{ name }}{% endblock %}
+{% block title %}{{ goods.name }}{% endblock %}
 {% block body %}
     <div id="content">
         <div class="post">
-            {{ detail | safe }}
+            <h2>{{ goods.name }}</h2>
+            <h3 style="text-align: center;">
+                {% if goods.price != None %}
+                <span>价格：￥{{ goods.price }}</span>
+                {% endif %}
+                <span>品牌：{{ goods.brand }}</span>
+            </h3>
+            <div class="goods-photo">
+                <ul>
+                    {% for photo in goods.photos %}
+                    <li><img src="{{ photo }}" alt="{{ goods.name }}" /></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <p>{{ goods.detail | safe }}</p>
         </div>
     </div>
 {% endblock %}
