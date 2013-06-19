@@ -7,10 +7,10 @@
                 <ul>
                     {% for gds in goods %}
                     <li>
-                        <div class="g_name"><a href="{{ url_for('show_goods_detail', number=gds.number) }}" target="_blank">{{ gds.name }}</a></div>
-                        <span class="g_number">商品编号：{{ gds.number }}</span>
+                        <div class="g_name"><a href="{{ url_for('show_goods_detail', id=gds.id) }}" target="_blank">{{ gds.name }}</a></div>
+                        <span class="g_number">商品编号：{{ gds.id }}</span>
                         <span class="g_brand">品牌：{{ gds.brand }}</span>
-                        <div class="g_photo"><a href="{{ url_for('show_goods_detail', number=gds.number) }}"><img src="{{ gds.photo }}" /></a></div>
+                        <div class="g_photo"><a href="{{ url_for('show_goods_detail', id=gds.id) }}"><img src="{{ gds.photo }}" /></a></div>
                         {% if session.logged_in and show_manage_btn %}
                         <div class="g_modify"><a href="{{ url_for('modify_goods', id=gds.id) }}">[修改]</a></div>
                         <div class="g_add_photo"><a href="{{ url_for('add_goods_photo', id=gds.id) }}">[上传图片]</a></div>
