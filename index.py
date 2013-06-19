@@ -121,7 +121,7 @@ def leave_message(page):
             cur.execute('select id from message where name=%s order by id desc', session.get('username'))
             total_messages = cur.rowcount
             total_pages = total_messages / messages_per_page
-            cur.execute('select id, name, email, content, datetime, ip from message where name=%s order by id desc limit %s, %s', session.get('username'), (offset, messages_per_page))
+            cur.execute('select id, name, email, content, datetime, ip from message where name=%s order by id desc limit %s, %s', (session.get('username'), offset, messages_per_page))
             if page != 1 and not cur.rowcount:
                 abort(404)
             messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
@@ -270,20 +270,20 @@ def join_us():
 def show_goods():
     goods = []
     cur = g.db.cursor()
-    cur.execute('select goods.id, number, name, brand, url from goods left join goods_photo on goods.id = goods_photo.goods_id group by goods.id')
+    cur.execute('select goods.id, name, brand, url from goods left join goods_photo on goods.id = goods_photo.goods_id group by goods.id')
     if cur.rowcount > 0:
-        goods = [dict(id=row[0], number=row[1], name=row[2], brand=row[3], photo=row[4]) for row in cur.fetchall()]
+        goods = [dict(id=row[0], name=row[1], brand=row[2], photo=row[3]) for row in cur.fetchall()]
     return render_template('goods.html', goods=goods, show_manage_btn=is_admin(session.get('username')))
         
 
-@app.route('/goods/<int:number>/', methods=['GET'])
-def show_goods_detail(number):
+@app.route('/goods/<int:id>/', methods=['GET'])
+def show_goods_detail(id):
     cur = g.db.cursor()
-    cur.execute('select id, number, name, price, detail, brand from goods where number=%s', number)
+    cur.execute('select name, price, detail, brand from goods where id=%s', id)
     if cur.rowcount > 0:
         row = cur.fetchone()
-        goods = dict(id=row[0], number=row[1], name=row[2], price=row[3], detail=row[4], brand=row[5])
-        cur.execute('select url from goods_photo where goods_id=%s', goods['id'])
+        goods = dict(id=id, name=row[0], price=row[1], detail=row[2], brand=row[3])
+        cur.execute('select url from goods_photo where goods_id=%s', id)
         if cur.rowcount > 0:
             rows = cur.fetchall()
             goods['photos'] = [row[0] for row in rows]
@@ -297,18 +297,18 @@ def add_goods():
         if is_admin(session.get('username')):
             error = ''
             if request.method == 'POST':
-                if not request.form['name']:
-                    error = u'商品名称不能为空'
-                elif not request.form['number']:
+                if not request.form['id']:
                     error = u'商品编号不能为空'
+                elif not request.form['name']:
+                    error = u'商品名称不能为空'
                 elif request.form['vcode'].upper() != session['validate'].upper():
                     error = u'验证码不正确'
                 else:
                     cur = g.db.cursor()
-                    cur.execute('insert into goods(number, name, price, detail, brand) values(%s, %s, %s, %s, %s)', (request.form['number'], request.form['name'], request.form['price'], request.form['detail'], request.form['brand']))
+                    cur.execute('insert into goods(id, name, price, detail, brand) values(%s, %s, %s, %s, %s)', (request.form['id'], request.form['name'], request.form['price'], request.form['detail'], request.form['brand']))
                     g.db.commit()
                     flash(u'添加成功，3 秒钟内将转到商品页面……')
-                    return render_template('flash.html', target=url_for('show_goods_detail', number=request.form['number']))
+                    return render_template('flash.html', target=url_for('show_goods_detail', id=request.form['id']))
             return render_template('goods-add.html', error=error)
         else:
             flash(u'权限不足，3 秒钟内将转到首页……')
@@ -324,22 +324,20 @@ def modify_goods(id):
         if is_admin(session.get('username')):
             error = ''
             cur = g.db.cursor()
-            cur.execute('select number, name, price, detail, brand from goods where id=%s', id)
+            cur.execute('select name, price, detail, brand from goods where id=%s', id)
             row = cur.fetchone()
-            goods = dict(number=row[0], name=row[1], price=row[2], detail=row[3], brand=row[4]) 
+            goods = dict(id=id, name=row[0], price=row[1], detail=row[2], brand=row[3]) 
             if request.method == 'POST':
                 if not request.form['name']:
                     error = u'商品名称不能为空'
-                elif not request.form['number']:
-                    error = u'商品编号不能为空'
                 elif request.form['vcode'].upper() != session['validate'].upper():
                     error = u'验证码不正确'
                 else:
                     cur = g.db.cursor()
-                    cur.execute('update goods set number=%s, name=%s, price=%s, detail=%s, brand=%s where id=%s', (request.form['number'], request.form['name'], request.form['price'], request.form['detail'], request.form['brand'], id))
+                    cur.execute('update goods set name=%s, price=%s, detail=%s, brand=%s where id=%s', (request.form['name'], request.form['price'], request.form['detail'], request.form['brand'], id))
                     g.db.commit()
                     flash(u'更新成功，3 秒钟内将转到商品页面……')
-                    return render_template('flash.html', target=url_for('show_goods_detail', number=request.form['number']))
+                    return render_template('flash.html', target=url_for('show_goods_detail', id=id))
             
             return render_template('goods-modify.html', goods=goods, error=error)
         else:

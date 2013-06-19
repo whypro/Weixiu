@@ -1,36 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+}
+
 html { 
     overflow-x: hidden;
     overflow-y: scroll; 
 }
 
-p, div, a {
-    margin: 0;
-    padding: 0;
+body {
+    padding: 8px;
 }
 
+a {
+    text-decoration: none;
+}
 .error {
     color: #f00
 }
 
 #header {
     border-radius: 10px 10px 0 0;
-    margin: 0;
-    padding: 0;
     background: #FB5A62;
 }
 
 #header h1 {
-    margin: 0;
-    padding: 30px;
-    padding-bottom: 15px;
+    padding: 30px 0 15px 0;
     font-family: "Microsoft YaHei";
     font-size: 22pt;
     font-weight: bold;
     text-align: center;
-}
-
-a {
-    text-decoration: none;
 }
 
 #header a {
@@ -38,7 +38,7 @@ a {
 }
 
 #header a:active, #header a:hover {
-    background-color: #BF6266;
+    background: #BF6266;
     color: #FFFFFF;
 }
 
@@ -53,10 +53,6 @@ a {
 
 #content {
     font-family: "Microsoft YaHei";
-    margin: 0;
-    padding-right: 2em;
-    padding-bottom: 10px;
-    padding-top: 10px;
     background: #FFFC7B;
 }
 
@@ -69,89 +65,85 @@ a {
     color: #FFFFFF;
 }
 
-#content h2 {
+#content .post {
+    padding: 2em;
+}
+
+#content .post .title {
+    padding-bottom: 1em;
+    font-family: "Microsoft YaHei";
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+#content .post h2 {
     font-family: "Microsoft YaHei";
     font-size: 16pt;
     font-weight: bold;
 }
-#content h3 {
+
+#content .post h3 {
     font-family: "Microsoft YaHei";
     font-size: 13pt;
     font-weight: normal;
 }
 
-#content p {
-    margin-top: 1em;
-    margin-bottom: 1em;
+#content .post p {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     text-indent: 2em;
     font-family: "Microsoft YaHei";
     font-size: 12pt;
     font-weight: normal;
 }
 
-
-#content .post {
-    padding-left: 2em;
+#content .post li {
+    margin: 1em;
 }
 
-#content .post h2 {
-    text-align: center;
-}
-
-#content .title {
-    font-family: "Microsoft YaHei";
-    font-size: 16pt;
-    font-weight: bold;
-    text-align: center;
-}
-#content .image-container {
-    margin-top: 20px;
+#content .post .image-container {
+    margin-top: 30px;
     margin-bottom: 30px;
     text-align: center;
-    padding-bottom: 10px;
 }
-#content .image-container .title {
+
+#content .post .image-container .title {
     margin-top: 10px;
     font-family: "Microsoft YaHei";
     font-size: 12pt;
     font-weight: bold;
 }
 
+#content .input-form {
+    padding: 1em;
+}
+
 #serving_dist {
-    margin: 0;
-    padding: 3px;
     font-family: "仿宋";
     font-size: 18pt;
     font-weight: bold;
     text-align: center;
     background: #99CC33;
+    padding: 0.5em 2em 0.5em 2em;
 }
 
 #serving_dist p {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 #contact_us {
     border-radius: 0 0 10px 10px;
-    margin: 0;
-    padding: 5px;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding: 0.5em 2em 0.5em 2em;
     font-family: "Microsoft YaHei";
     font-size: 16pt;
     background: #6699CC;
 }
 
 #contact_us p {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-.return {
-    font-family: "Microsoft YaHei";
-    font-size: 12pt;
-    text-align: right;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .recommend {
