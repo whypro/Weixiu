@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import division
 from math import ceil
 from flask import Flask, g, render_template, request, flash, redirect, url_for, session
@@ -8,22 +7,8 @@ from hashlib import md5
 from urllib import urlencode
 from captcha import create_captcha
 
-from bae.core import const
-
-# 数据库配置
-DB_HOST = const.MYSQL_HOST
-DB_DATABASE = 'RTBLqowGxNpCGjMISBLt'
-DB_USERNAME = const.MYSQL_USER
-DB_PASSWORD = const.MYSQL_PASS
-DB_CHARSET = 'utf8'
-DB_PORT = int(const.MYSQL_PORT)
-
-#
-DEBUG = True
-SECRET_KEY = 'development key'
-
 app = Flask(__name__)
-app.config.from_object(__name__)
+app.config.from_object('config')
 app.debug = True
 
 def connect_db():
@@ -419,5 +404,12 @@ def forbidden(e):
 def test_403():
     abort(403)
     
-from bae.core.wsgi import WSGIApplication
-application = WSGIApplication(app)
+
+if __name__ == '__main__':
+    try:
+       import bae
+    except:
+        app.run(host='0.0.0.0')
+    else:
+        from bae.core.wsgi import WSGIApplication
+        application = WSGIApplication(app)

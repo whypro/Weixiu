@@ -12,20 +12,22 @@
     <div id="header">
         <h1><a href="{{ url_for('index') }}">电脑维护&emsp;上门服务</a></h1>
         <div id="navigation">
+            <ul>
             {% if session.logged_in %}
             <em>欢迎，{{ session.username }}</em>&nbsp;|&nbsp;
             {% endif %}
-            <a href="{{ url_for('index') }}">首页</a>&nbsp;|&nbsp;
-            <a href="{{ url_for('show_goods') }}">产品介绍</a>&nbsp;|&nbsp;
+            <li><a href="{{ url_for('index') }}">首页</a></li>
+            <li><a href="{{ url_for('show_goods') }}">产品介绍</a></li>
             {% if session.logged_in %}
-            <a href="{{ url_for('show_profile') }}">个人中心</a>&nbsp;|&nbsp;
-            <a href="{{ url_for('logout') }}">注销</a>&nbsp;|&nbsp;
+            <li><a href="{{ url_for('show_profile') }}">个人中心</a></li>
+            <li><a href="{{ url_for('logout') }}">注销</a></li>
             {% else %}
-            <a href="{{ url_for('register') }}">注册</a>&nbsp;|&nbsp;
-            <a href="{{ url_for('login') }}">登录</a>&nbsp;|&nbsp;
+            <li><a href="{{ url_for('register') }}">注册</a></li>
+            <li><a href="{{ url_for('login') }}">登录</a></li>
             {% endif %}
-            <a href="{{ url_for('leave_message') }}">留言板</a>&nbsp;|&nbsp;
-            <a href="{{ url_for('join_us') }}">加入我们</a>
+            <li><a href="{{ url_for('leave_message') }}">留言板</a></li>
+            <li><a href="{{ url_for('join_us') }}">加入我们</a></li>
+            </ul>
         </div>
     </div>
     {% block body %}{% endblock %}
