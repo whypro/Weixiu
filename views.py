@@ -245,7 +245,7 @@ def show_profile():
 # 加入我们页面        
 @app.route('/join/')
 def join_us():
-    return render_template('join-us.html')
+    return render_template('join.html')
 
     
 @app.route('/goods/', methods=['GET'])
@@ -375,8 +375,11 @@ def add_goods_photo(id):
         # flash(u'请先登录，3 秒钟内将转到登录页面……')
         # return render_template('flash.html', target=url_for('login'))
         abort(404)
-        
-        
+
+@app.route('/services/', methods=['GET'])        
+def show_services():
+    return render_template('services.html')
+    
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

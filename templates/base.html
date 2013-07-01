@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}&nbsp;|&nbsp;电脑维护&nbsp;上门服务</title>
+    <title>{% block title %}{% endblock %}&nbsp;|&nbsp;鳗鱼电脑工作室</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
@@ -10,13 +10,14 @@
 <body>
 <div id="canvas">
     <div id="header">
-        <h1><a href="{{ url_for('index') }}">电脑维护&emsp;上门服务</a></h1>
+        <h1><a href="{{ url_for('index') }}">鳗鱼电脑工作室</a></h1>
         <div id="navigation">
             <ul>
             {% if session.logged_in %}
             <em>欢迎，{{ session.username }}</em>&nbsp;|&nbsp;
             {% endif %}
             <li><a href="{{ url_for('index') }}">首页</a></li>
+            <li><a href="{{ url_for('show_services') }}">服务介绍</a></li>
             <li><a href="{{ url_for('show_goods') }}">产品介绍</a></li>
             {% if session.logged_in %}
             <li><a href="{{ url_for('show_profile') }}">个人中心</a></li>
@@ -33,14 +34,12 @@
     {% block body %}{% endblock %}
     <div id="footer">
         <div id="serving_dist">
-            <p>价格实惠，欢迎来电预约</p>
+            <p>欢迎来电预约</p>
             <p>上门服务范围：秦岭、华兴各大街坊</p>
         </div>
         <div id="contact_us">
-            <p>
-                联系人：Mr. 王<br />
-                电&emsp;话：13379102215&emsp;&emsp;&emsp;&emsp;18089170585
-            </p>
+            <p>联系人：Mr. 王</p>
+            <p>电&emsp;话：13379102215&emsp;&emsp;&emsp;&emsp;18089170585</p>
         </div>
     </div>
 </div>
