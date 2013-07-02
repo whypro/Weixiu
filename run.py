@@ -11,4 +11,4 @@ if __name__ == '__main__':
         from bae.core.wsgi import WSGIApplication
         application = WSGIApplication(app)
     else:
-        app.run(host='0.0.0.0')
+        app.run()

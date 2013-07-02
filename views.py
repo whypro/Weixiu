@@ -252,7 +252,7 @@ def join_us():
 def show_goods():
     goods = []
     cur = g.db.cursor()
-    cur.execute('select goods.id, name, brand, url from goods left join goods_photo on goods.id = goods_photo.goods_id group by goods.id')
+    cur.execute('select goods.id, name, brand, url from goods left join goods_photo on goods.id = goods_photo.goods_id group by goods.id order by click desc')
     if cur.rowcount > 0:
         goods = [dict(id=row[0], name=row[1], brand=row[2], photo=row[3]) for row in cur.fetchall()]
     return render_template('goods.html', goods=goods, show_manage_btn=is_admin(session.get('username')))
@@ -269,6 +269,8 @@ def show_goods_detail(id):
         if cur.rowcount > 0:
             rows = cur.fetchall()
             goods['photos'] = [row[0] for row in rows]
+        cur.execute('update goods set click=click+1 where id=%s', id)
+        g.db.commit()
         return render_template('goods-detail.html', goods=goods)
     else:
         abort(404)
