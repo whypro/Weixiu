@@ -61,6 +61,8 @@ a {
 
 #main {
     background: #99CC33;
+    float: left;
+    width: 100%;
 }
 
 .clear {
@@ -101,7 +103,7 @@ a {
 }
 
 .side-left img {
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 
 #content {

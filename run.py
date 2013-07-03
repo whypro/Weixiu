@@ -6,9 +6,9 @@ app.config.from_object('config')
 app.debug = True
 from views import *
 
-if __name__ == '__main__':
-    if 'SERVER_SOFTWARE' in os.environ:
-        from bae.core.wsgi import WSGIApplication
-        application = WSGIApplication(app)
-    else:
-        app.run()
+
+if 'SERVER_SOFTWARE' in os.environ:
+    from bae.core.wsgi import WSGIApplication
+    application = WSGIApplication(app)
+elif __name__ == '__main__':
+    app.run()
