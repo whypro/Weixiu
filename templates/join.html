@@ -1,23 +1,38 @@
 {% extends "base.html" %}
 {% block title %}加入我们{% endblock %}
-{% block body %}
-    <div id="content">
-        <div class="post">
-            <p>如果你是一名学生，或者曾是一名学生</p>
-            <p>如果你已经厌倦了让人头疼的数理化史地生</p>
-            <p>如果自认为是一名网络极客</p>
-            <p>懂得如何架设网站，熟练掌握 HTML5, CSS 和 JavaScript</p>
-            <p>或者懂得后台编程，痴迷于 Python, Perl, Ruby，熟悉任何一门编程语言</p>
-            <p>或者有很强的艺术天赋，专注于美术和设计</p>
-            <p>或者曾经是班级里的“黑客”，与应试教育做过抗争</p>
-            <p>如果你才华横溢、不甘平庸</p>
-            <p>那么就加入我们的团队吧</p>
-            <p>也许你刚刚上初中，也许你刚刚高考完，也许你已经进入了大学</p>
-            <p>在这里，我们不在乎你的年龄，不在乎你的分数，我们只欣赏你的能力，和为梦想奋斗的激情</p>
-            <p>在这里，你将学到更多有用的知识：计算机应用、图像处理、软件开发、网站建设、硬件维护</p>
-            <p>未来是我们的，让我们一起努力，改变世界吧</p>
-            <p>……</p>
-            <p>欢迎致电</p>
-        </div>
+{% block bodyclass %}class="single single-post postid-69 single-format-standard custom-background layout-2cr" screen_capture_injected="true" ryt12515="1"{% endblock %}
+{% block content %}
+<div id="content" class="container clearfix">
+    <div class="container clearfix ">
+        <img class="intro-img" alt=" " src="{{ url_for('static', filename='image/inner-page-bg-2.jpg') }}"
+        alt="In egestas porta tortor sed imperdiet" />
     </div>
+    <div class="three-fourth">
+        <h1>加入我们</h1>
+        <article id="post-69" class="post-69 post type-post status-publish format-standard hentry category-events clearfix"
+        role="article">
+            <div class="entry-body">
+                <!-- end article header -->
+                <p>如果你是一名学生，或者曾是一名学生</p>
+                <p>如果你已经厌倦了让人头疼的数理化史地生</p>
+                <p>如果自认为是一名网络极客</p>
+                <p>懂得如何架设网站，熟练掌握 HTML5, CSS 和 JavaScript</p>
+                <p>或者懂得后台编程，痴迷于 Python, Perl, Ruby，熟悉任何一门编程语言</p>
+                <p>或者有很强的艺术天赋，专注于美术和设计</p>
+                <p>或者曾经是班级里的“黑客”，与应试教育做过抗争</p>
+                <p>如果你才华横溢、不甘平庸</p>
+                <p>那么就加入我们的团队吧</p>
+                <p>也许你刚刚上初中，也许你刚刚高考完，也许你已经进入了大学</p>
+                <p>在这里，我们不在乎你的年龄，不在乎你的分数，我们只欣赏你的能力，和为梦想奋斗的激情</p>
+                <p>在这里，你将学到更多有用的知识：计算机应用、图像处理、软件开发、网站建设、硬件维护</p>
+                <p>未来是我们的，让我们一起努力，改变世界吧</p>
+                <p>……</p>
+                <p>欢迎致电</p> 
+            </div>
+            <!-- end entry-body -->
+        </article>
+        <!-- end article -->
+    </div>
+</div>
 {% endblock %}
+

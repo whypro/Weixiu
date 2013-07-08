@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}产品介绍{% endblock %}
+{% block content %}
+<div id="content" class="container clearfix">
+    <!-- page header -->
+    <div class="container clearfix ">
+        <img class="intro-img" alt="" src="{{ url_for('static', filename='image/inner-page-bg-3.jpg') }}">
+    </div>
+    <!-- end page header -->
+    <!-- content -->
+    <div class="three-fourth">
+        <h1>产品介绍</h1>
+        <article id="post-175" class="post-175 page type-page status-publish hentry clearfix"
+        role="article">
+            <div class="page-body clearfix">
+                    {% for gds in goods %}
+                    <div class="one_half">
+                        <div class="g_name"><a href="{{ url_for('show_goods_detail', id=gds.id) }}" target="_blank">{{ gds.name }}</a></div>
+                        <span class="g_brand">品牌：{{ gds.brand }}</span>
+                        <div class="g_photo"><a href="{{ url_for('show_goods_detail', id=gds.id) }}"><img src="{{ gds.photo }}" /></a></div>
+                        {% if session.logged_in and show_manage_btn %}
+                        <div class="g_modify"><a href="{{ url_for('modify_goods', id=gds.id) }}">[修改]</a></div>
+                        <div class="g_add_photo"><a href="{{ url_for('add_goods_photo', id=gds.id) }}">[上传图片]</a></div>
+                        <div class="g_delete"><a href="{{ url_for('delete_goods', id=gds.id) }}">[删除]</a></div>
+                        {% endif %}
+                    </div>
+                    <div class="one_half last">
+                        <div class="g_name"><a href="{{ url_for('show_goods_detail', id=gds.id) }}" target="_blank">{{ gds.name }}</a></div>
+                        <span class="g_brand">品牌：{{ gds.brand }}</span>
+                        <div class="g_photo"><a href="{{ url_for('show_goods_detail', id=gds.id) }}"><img src="{{ gds.photo }}" /></a></div>
+                        {% if session.logged_in and show_manage_btn %}
+                        <div class="g_modify"><a href="{{ url_for('modify_goods', id=gds.id) }}">[修改]</a></div>
+                        <div class="g_add_photo"><a href="{{ url_for('add_goods_photo', id=gds.id) }}">[上传图片]</a></div>
+                        <div class="g_delete"><a href="{{ url_for('delete_goods', id=gds.id) }}">[删除]</a></div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <li><em>无商品</em></li>
+                    {% endfor %}
+                    {% if session.logged_in and show_manage_btn %}
+                    <li><a href="{{ url_for('add_goods') }}">[增加商品]</a></li>
+                    {% endif %}
+                <div class="clearboth"></div>
+                <p>
+                </p>
+                <div class="divider">
+                    <a href="#top">
+                        <br>
+                        <h5>
+                            TOP
+                        </h5>
+                    </a>
+                </div>
+            <!-- end article section -->
+        </article>
+    </div>
+    <div class="one-fourth last">
+        <aside>
+            <!-- This content shows up if there are no widgets defined in the backend.
+            -->
+        </aside>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}联系我们{% endblock %}
+{% block content %}
+<div id="content" class="clearfix">
+    <!-- page header -->
+    <div class="container clearfix ">
+        <!-- contact map -->
+        <div id="contact-map">
+            <iframe height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://ditu.google.cn/maps?f=q&amp;source=s_q&amp;hl=zh-CN&amp;geocode=&amp;q=%E8%A5%BF%E5%AE%89%E8%BD%AF%E4%BB%B6%E5%9B%AD&amp;aq=&amp;sll=34.227274,108.918285&amp;sspn=0.070256,0.162048&amp;brcurrent=3,0x366379f5c607b3b9:0x5aad3cb56bc77d00,0,0x366379e922ac17b9:0x85d466fda794582e%3B5,0,0&amp;ie=UTF8&amp;hq=%E8%A5%BF%E5%AE%89%E8%BD%AF%E4%BB%B6%E5%9B%AD&amp;t=m&amp;ll=34.223234,108.882189&amp;spn=0.018452,0.032015&amp;output=embed"></iframe>
+        </div>
+        <!-- end contact map -->
+    </div>
+    <!-- content -->
+    <div class="container">
+        <h1>
+            联系我们
+        </h1>
+        <article id="post-34" class="post-34 page type-page status-publish hentry clearfix"
+        role="article">
+            <div class="page-body clearfix">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum
+                    consequat eros, cursus fringilla odio rhoncus at. Aliquam pellentesque
+                    blandit urna nec pulvinar. Ut luctus libero sed mauris rhoncus sit amet
+                    consequat dui pharetra. Praesent tincidunt magna enim. Morbi gravida mauris
+                    eget urna rhoncus blandit. Cras iaculis nisi et ante condimentum vel ullamcorper
+                    quam eleifend.
+                </p>
+            </div>
+            <div class="one-third">
+                <div class="caddress">
+                    <strong>
+                        地址：
+                    </strong>
+                    陕西，西安，710000
+                </div>
+                <div class="cphone">
+                    <strong>
+                        手机：
+                    </strong>
+                    13379102215
+                </div>
+                <div class="cemail">
+                    <strong>
+                        E-mail:
+                    </strong>
+                    whypro@live.cn
+                </div>
+            </div>
+            <div class="two-third last">
+                <div id="messages">
+                    {% if error %}
+                    <p class="simple-error error">
+                        {{ error }}
+                    </p>
+                    {% endif %}
+                    
+                    <p class="simple-success thanks">
+                        <strong>谢谢！</strong>留言成功，我们会尽快处理。
+                    </p>
+                </div>
+                <form id="contactForm" method="POST">
+                    <div class="one-third">
+                        <label for="nameinput">姓名</label>
+                        {% if pre_val %}
+                        <input type="text" id="nameinput" name="name" value="{{ pre_val.name }}" class="requiredField" readonly  />
+                        {% else %}
+                        <input type="text" id="nameinput" name="name" value="" class="requiredField" autocomplete="off" disableautocomplete 
+                        />
+                        {% endif %}
+                        <span class="error">请输入您的姓名</span>
+                    </div>
+                    <div class="one-third last">
+                        <label for="emailinput">电子邮箱</label>
+                        {% if pre_val %}
+                        <input type="text" id="emailinput" name="email" value="{{ pre_val.email }}" class="requiredField email" readonly
+                        />
+                        {% else %}
+                        <input type="text" id="emailinput" name="email" value="" class="requiredField email"
+                        />
+                        {% endif %}
+                        <span class="error">请输入您的电子邮箱</span>
+                    </div>
+                    <div class="two-third">
+                        <label for="Mymessage">内容</label>
+                        <textarea cols="20" rows="20" id="Mymessage" name="content" class="requiredField" placeholder="在此输入留言内容……"></textarea>
+                        <span class="error">请输入留言内容</span>
+                    </div>
+                    <div class="captcha">
+                        <label for="captchainput">验证码</label>
+                        <input type="text" id="captchainput" name="vcode" autocomplete="off" disableautocomplete class="requiredField captcha"/>
+                        <span class="error">请输入验证码</span>
+                        <img src="{{ url_for('get_captcha') }}" onclick="this.src='{{ url_for('get_captcha') }}'" />
+                    </div>
+                    <br class="clear" />
+                    <input type="hidden" name="submitted" id="submitted" value="true" />
+                    <button type="submit" id="submitbutton" class="button small round blue">
+                        &nbsp;留言&nbsp;
+                    </button>
+                </form>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}

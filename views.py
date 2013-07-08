@@ -56,6 +56,38 @@ def show_home_network():
     return render_template('home-network.html')
         
 # 留言页面
+@app.route('/contact/', methods=['GET', 'POST'])
+def contact():
+    error = None
+    messages = []
+    pre_val = None
+    if session.get('logged_in'):
+        cur = g.db.cursor()
+        cur.execute('select username, email from people where username=%s', session.get('username'))
+        row = cur.fetchone()
+        pre_val = dict(name=row[0], email=row[1])
+        
+    if request.method == 'POST':
+        if not request.form['name']:
+            error = u'姓名不能为空'
+        elif not request.form['content']:
+            error = u'留言内容不能为空'
+        elif request.form['vcode'].upper() != session['validate'].upper():
+            error = u'验证码不正确'
+        else:
+            # 前台验证通过
+            cur = g.db.cursor()
+            cur.execute('select id from people where username=%s', session.get('username'))
+            id = cur.fetchone()[0]
+            cur = g.db.cursor()
+            cur.execute('insert into message(people_id, name, email, content, ip) values(%s, %s, %s, %s, %s)', (id, request.form['name'], request.form['email'], request.form['content'], request.remote_addr))
+            g.db.commit()
+            flash(u'留言成功，3 秒钟内将返回首页……')
+            return render_template('flash.html', target=url_for('index'))
+            
+    return render_template('contact.html', messages=messages, pre_val=pre_val, error=error)
+    
+    
 @app.route('/guestbook/', defaults={'page': 1}, methods=['GET', 'POST'])
 @app.route('/guestbook/page/<int:page>/', methods=['GET'])
 def leave_message(page):

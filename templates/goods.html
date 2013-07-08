@@ -1,30 +1,55 @@
 {% extends "base.html" %}
-{% block title %}商品列表{% endblock %}
-{% block body %}
-    <div id="content">
-        <div class="post">
-            <div class="goods">
-                <ul>
-                    {% for gds in goods %}
-                    <li>
-                        <div class="g_name"><a href="{{ url_for('show_goods_detail', id=gds.id) }}" target="_blank">{{ gds.name }}</a></div>
-                        <span class="g_number">商品编号：{{ gds.id }}</span>
-                        <span class="g_brand">品牌：{{ gds.brand }}</span>
-                        <div class="g_photo"><a href="{{ url_for('show_goods_detail', id=gds.id) }}"><img src="{{ gds.photo }}" /></a></div>
-                        {% if session.logged_in and show_manage_btn %}
-                        <div class="g_modify"><a href="{{ url_for('modify_goods', id=gds.id) }}">[修改]</a></div>
-                        <div class="g_add_photo"><a href="{{ url_for('add_goods_photo', id=gds.id) }}">[上传图片]</a></div>
-                        <div class="g_delete"><a href="{{ url_for('delete_goods', id=gds.id) }}">[删除]</a></div>
-                        {% endif %}
-                    </li>
-                    {% else %}
-                    <li><em>无商品</em></li>
-                    {% endfor %}
-                    {% if session.logged_in and show_manage_btn %}
-                    <li><a href="{{ url_for('add_goods') }}">[增加商品]</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
+{% block title %}产品介绍{% endblock %}
+{% block content %}
+<div id="content" class="container clearfix">
+    <!-- page header -->
+    <div class="container clearfix ">
+        <img class="intro-img" alt="" src="{{ url_for('static', filename='image/inner-page-bg-3.jpg') }}">
     </div>
+    <h1>产品介绍</h1>
+    <ul class="filterable" id="filterable">
+        <li class="active">
+            <a href="#" data-value="all"
+            data-type="all" class="all">全部</a>
+        </li>
+        <li>
+            <a href="#"class="illustration" data-type="illustration">无线路由器</a>
+        </li>
+    </ul>
+    <div class="portfolio-container">
+        <ul id="portfolio-items-one-fourth" class="portfolio-items clearfix">
+            {% for gds in goods %}
+            <li class="item illustration web " data-id="id-211" data-type="illustration web ">
+                <div class="portfolio-item ">
+                    <div class="item-content">
+                        <div class="link-holder">
+                            <div class="portfolio-item-holder">
+                                <div class="portfolio-item-hover-content">
+                                    <a href="{{ gds.photo }}" target="_blank" title="{{ gds.name }}" data-rel="prettyPhoto" class="zoom">查看图片</a>
+                                    <img src="{{ gds.photo }}" alt="{{ gds.name }}" class="portfolio-img" width="220" /></a>
+                                    <div class="hover-options"></div>
+                                </div>
+                            </div>
+                            <div class="description">
+                                <p>
+                                    <a href="{{ url_for('show_goods_detail', id=gds.id) }}"
+                                    title="{{ gds.name }}">{{ gds.name }}</a>
+                                </p>
+                                <span>品牌：{{ gds.brand }}</span>
+                                {% if session.logged_in and show_manage_btn %}
+                                <div class="g_modify"><a href="{{ url_for('modify_goods', id=gds.id) }}">[修改]</a></div>
+                                <div class="g_add_photo"><a href="{{ url_for('add_goods_photo', id=gds.id) }}">[上传图片]</a></div>
+                                <div class="g_delete"><a href="{{ url_for('delete_goods', id=gds.id) }}">[删除]</a></div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <!-- begin #pagination -->
+        <!-- end #pagination -->
+    </div>
+</div>
 {% endblock %}

@@ -1,11 +1,327 @@
 {% extends "base.html" %}
 {% block title %}首页{% endblock %}
-{% block body %}
-    <div id="content">
-        <div class="post">
-            <div class="image-container">
-                    <img src="{{ url_for('static', filename='image/fish-logo.png') }}" title="鳗鱼电脑工作室" alt="LOGO" />
-            </div>
+{% block content %}
+<div id="content" class="clearfix">
+    <!-- begin .blurb -->
+    <div class="container">
+        <div class="intro-page">
+            <h2>欢迎光临<strong>鳗鱼电脑工作室</strong>。我们专注于<strong>电脑维护</strong>、<strong>网站建设</strong>和<strong>软件开发</strong>。</h2>
         </div>
     </div>
+    <!-- end .blurb -->
+                
+    <!-- begin #slider -->
+    <div id="slider_container" class="container">
+        <div class="flexslider loading ">
+            <!-- 940*350-->
+            <ul class="slides">
+                <li><a href="http://www.google.com"><img src="http://demo.s5themes.com/simplecorp/files/2012/09/2299504641_a1068fef74_b-940x350.jpg" alt="高速无线局域网" /></a>
+                    <div class="flex-caption">
+                        <h3>高速无线局域网</h3>
+                    </div>
+                </li>
+                <li><a href=""><img src="http://demo.s5themes.com/simplecorp/files/2012/09/2402966366_ec627fdcf6_b1-940x350.jpg" alt="Vehicula vel blandit vitae" /></a>
+                    <div class="flex-caption">
+                        <h3>Vehicula vel blandit vitae</h3>
+                    </div>
+                </li>
+                <li><a><img src="{{ url_for('static', filename='image/slide/high-tech-01.jpg') }}" alt="电脑故障快速恢复" /></a>
+                    <div class="flex-caption">
+                        <h3>电脑故障快速恢复</h3>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end #slider -->
+
+    <!-- flex slider & slider settings -->
+    <script type="text/javascript">
+    jQuery.noConflict();
+        jQuery(document).ready(function(){
+            if ( jQuery( '.flexslider' ).length && jQuery() ) {
+            jQuery('.flexslider').flexslider({ 
+                animation:'slide',
+                controlNav:true,
+                animationLoop: true,  
+                controlsContainer:"",
+                pauseOnHover: true,  
+                nextText:"&rsaquo;",
+                prevText:"&lsaquo;",
+                keyboardNav: true,  
+                slideshowSpeed: 3000,
+                animationSpeed: 500,
+                start: function(slider) {
+                    slider.removeClass('loading');
+                }
+
+            });
+            }
+        });
+    </script>
+    <!-- end flex slider & slider settings -->
+
+    <!--begin cols content -->
+    <div class="container clearfix">
+        <div class="one-half">
+            <img src="{{ url_for('static', filename='image/sampleimages/featured-img-01.png') }}" class="img-align-left" alt="Awesome Features" />
+            <h3>家庭无线局域网组建</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            <p class="readmore">
+                <a href="#">了解更多…</a>
+            </p>
+        </div>
+                            
+        <div class="one-half last">
+            <img src="{{ url_for('static', filename='image/sampleimages/featured-img-02.png') }}" class="img-align-left" alt="Browser Compatibility" />				
+            <h3>重装系统</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            <p class="readmore">
+                <a href="#">了解更多…</a>
+            </p>
+        </div>
+    </div> 
+
+    <div class="container clearfix">
+        <div class="one-half">
+            <img src="{{ url_for('static', filename='image/sampleimages/featured-img-03.png') }}" class="img-align-left" alt="Works on Mobile Devices" />			
+            <h3>手机刷机</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            <p class="readmore">
+                <a href="#">了解更多…</a>
+            </p>
+        </div>
+                            
+        <div class="one-half last">
+            <img src="{{ url_for('static', filename='image/sampleimages/featured-img-04.png') }}" class="img-align-left" alt="Full Documentation" />
+            <h3>故障处理</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            <p class="readmore">
+                <a href="#">了解更多…</a>
+            </p>
+        </div>
+                            
+        <div class="horizontal-line"> </div>
+        
+    </div>
+    <!-- end cols content -->
+
+
+    <div class="container clearfix">
+        <h3>Some of Our Featured Projects</h3>
+        <ul id="projects-carousel" class="loading">
+            <!-- PROJECT ITEM STARTS -->
+            <li>
+                <div class="item-content">
+                    <div class="link-holder">
+                        <div class="portfolio-item-holder">
+                            <div class="portfolio-item-hover-content">
+                                <a href="http://demo.s5themes.com/simplecorp/files/2012/09/2402966366_ec627fdcf6_b1-700x437.jpg" title="Integer velit diam" data-rel="prettyPhoto" class="zoom">View Image</a>
+                            
+                                <img src="http://demo.s5themes.com/simplecorp/files/2012/09/2402966366_ec627fdcf6_b1-220x220.jpg" alt="Integer velit diam" width="220" class="portfolio-img" />
+                                                                    
+                                <div class="hover-options"></div>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <p>
+                                <a href="http://demo.s5themes.com/simplecorp/portfolio/details/integer-velit-diam/" title="Integer velit diam"> Integer velit diam </a>
+                            </p>
+                            <span>Illustration / Web</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!-- PROJECT ITEM ENDS -->
+            <!-- PROJECT ITEM STARTS -->
+            <li>
+                <div class="item-content">
+                    <div class="link-holder">
+                        <div class="portfolio-item-holder">
+                            <div class="portfolio-item-hover-content">
+                                <a href="http://demo.s5themes.com/simplecorp/files/2012/09/1235878327_2ec7cc03d1_o-700x521.jpg" title="Vivamus ac odio dolor." data-rel="prettyPhoto" class="zoom">View Image</a>
+                                
+                                <img src="http://demo.s5themes.com/simplecorp/files/2012/09/1235878327_2ec7cc03d1_o-220x220.jpg" alt="Vivamus ac odio dolor." width="220" class="portfolio-img" />
+                                                                        
+                                <div class="hover-options"></div>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <p>
+                                <a href="http://demo.s5themes.com/simplecorp/portfolio/details/vivamus-ac-odio-dolor/" title="Vivamus ac odio dolor."> Vivamus ac odio dolor. </a>
+                            </p>
+                            <span>Illustration</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!-- PROJECT ITEM ENDS -->
+            <!-- PROJECT ITEM STARTS -->
+            <li>
+            <div class="item-content">
+                <div class="link-holder">
+                    <div class="portfolio-item-holder">
+                        <div class="portfolio-item-hover-content">
+                            
+
+                            
+                            
+                                                                    
+                            <a href="http://demo.s5themes.com/simplecorp/files/2012/09/1750924168_01a96cfd0a_o-700x466.jpg" title="Nulla mollis fermentum nunc" data-rel="prettyPhoto" class="zoom">View Image</a>
+                            
+                            <img src="http://demo.s5themes.com/simplecorp/files/2012/09/1750924168_01a96cfd0a_o-220x220.jpg" alt="Nulla mollis fermentum nunc" width="220" class="portfolio-img" />
+                                                                    
+                            <div class="hover-options"></div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <p>
+                            <a href="http://demo.s5themes.com/simplecorp/portfolio/details/nulla-mollis-fermentum-nunc/" title="Nulla mollis fermentum nunc"> Nulla mollis fermentum nunc </a>
+                        </p>
+                        <span>Illustration</span>
+                    </div>
+                </div>
+            </div>
+            </li>
+            <!-- PROJECT ITEM ENDS -->
+                                    <!-- PROJECT ITEM STARTS -->
+            <li>
+            <div class="item-content">
+                <div class="link-holder">
+                    <div class="portfolio-item-holder">
+                        <div class="portfolio-item-hover-content">
+                            
+
+                            
+                            
+                                                                    
+                            <a href="http://demo.s5themes.com/simplecorp/files/2012/09/1235878327_2ec7cc03d1_o-700x521.jpg" title="Cras vel orci sapien" data-rel="prettyPhoto" class="zoom">View Image</a>
+                            
+                            <img src="http://demo.s5themes.com/simplecorp/files/2012/09/1235878327_2ec7cc03d1_o-220x220.jpg" alt="Cras vel orci sapien" width="220" class="portfolio-img" />
+                                                                    
+                            <div class="hover-options"></div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <p>
+                            <a href="http://demo.s5themes.com/simplecorp/portfolio/details/cras-vel-orci-sapien/" title="Cras vel orci sapien"> Cras vel orci sapien </a>
+                        </p>
+                        <span>Illustration / Web</span>
+                    </div>
+                </div>
+            </div>
+            </li>
+            <!-- PROJECT ITEM ENDS -->
+                                    <!-- PROJECT ITEM STARTS -->
+            <li>
+            <div class="item-content">
+                <div class="link-holder">
+                    <div class="portfolio-item-holder">
+                        <div class="portfolio-item-hover-content">
+                            
+
+                            
+                            
+                                                                    
+                            <a href="http://demo.s5themes.com/simplecorp/files/2012/09/2419999078_0f8eafc797_b2-700x437.jpg" title="BlackBerry Website Project" data-rel="prettyPhoto" class="zoom">View Image</a>
+                            
+                            <img src="http://demo.s5themes.com/simplecorp/files/2012/09/2419999078_0f8eafc797_b2-220x220.jpg" alt="BlackBerry Website Project" width="220" class="portfolio-img" />
+                                                                    
+                            <div class="hover-options"></div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <p>
+                            <a href="http://demo.s5themes.com/simplecorp/portfolio/details/39/" title="BlackBerry Website Project"> BlackBerry Website Project </a>
+                        </p>
+                        <span>Web</span>
+                    </div>
+                </div>
+            </div>
+            </li>
+            <!-- PROJECT ITEM ENDS -->
+                                    <!-- PROJECT ITEM STARTS -->
+            <li>
+            <div class="item-content">
+                <div class="link-holder">
+                    <div class="portfolio-item-holder">
+                        <div class="portfolio-item-hover-content">
+                            
+
+                            
+                            
+                                                                    
+                            <a href="http://demo.s5themes.com/simplecorp/files/2012/09/2415790015_f2f01eecae_b-700x437.jpg" title="Vestibulum ante ipsum primis" data-rel="prettyPhoto" class="zoom">View Image</a>
+                            
+                            <img src="http://demo.s5themes.com/simplecorp/files/2012/09/2415790015_f2f01eecae_b-220x220.jpg" alt="Vestibulum ante ipsum primis" width="220" class="portfolio-img" />
+                                                                    
+                            <div class="hover-options"></div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <p>
+                            <a href="http://demo.s5themes.com/simplecorp/portfolio/details/vestibulum-ante-ipsum-primis/" title="Vestibulum ante ipsum primis"> Vestibulum ante ipsum primis </a>
+                        </p>
+                        <span>Illustration</span>
+                    </div>
+                </div>
+            </div>
+            </li>
+            <!-- PROJECT ITEM ENDS -->
+                                    <!-- PROJECT ITEM STARTS -->
+            <li>
+            <div class="item-content">
+                <div class="link-holder">
+                    <div class="portfolio-item-holder">
+                        <div class="portfolio-item-hover-content">
+                            
+
+                            
+                            
+                                                                    
+                            <a href="http://demo.s5themes.com/simplecorp/files/2012/09/2402966366_ec627fdcf6_b1-700x437.jpg" title="Curabitur nisl libero" data-rel="prettyPhoto" class="zoom">View Image</a>
+                            
+                            <img src="http://demo.s5themes.com/simplecorp/files/2012/09/2402966366_ec627fdcf6_b1-220x220.jpg" alt="Curabitur nisl libero" width="220" class="portfolio-img" />
+                                                                    
+                            <div class="hover-options"></div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <p>
+                            <a href="http://demo.s5themes.com/simplecorp/portfolio/details/curabitur-nisl-libero/" title="Curabitur nisl libero"> Curabitur nisl libero </a>
+                        </p>
+                        <span>Web</span>
+                    </div>
+                </div>
+            </div>
+            </li>
+            <!-- PROJECT ITEM ENDS -->
+                                    <!-- PROJECT ITEM STARTS -->
+            <li>
+            <div class="item-content">
+                <div class="link-holder">
+                    <div class="portfolio-item-holder">
+                        <div class="portfolio-item-hover-content">
+                            <a href="http://demo.s5themes.com/simplecorp/files/2012/09/2419999078_0f8eafc797_b2-700x437.jpg" title="Aliquam erat volutpat" data-rel="prettyPhoto" class="zoom">View Image</a>
+                            
+                            <img src="http://demo.s5themes.com/simplecorp/files/2012/09/2419999078_0f8eafc797_b2-220x220.jpg" alt="Aliquam erat volutpat" width="220" class="portfolio-img" />
+                                                                    
+                            <div class="hover-options"></div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <p>
+                            <a href="http://demo.s5themes.com/simplecorp/portfolio/details/aliquam-erat-volutpat/" title="Aliquam erat volutpat"> Aliquam erat volutpat </a>
+                        </p>
+                        <span>Web</span>
+                    </div>
+                </div>
+            </div>
+            </li>
+            <!-- PROJECT ITEM ENDS -->
+        </ul>
+        <!-- // optional "view full portfolio" button on homepage featured projects -->
+        {# <a href="/simplecorp/portfolio/" class="colored" title="View full portfolio">View full portfolio</a> #}
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,153 @@
+<!doctype html>
+<!--[if IEMobile 7 ]> <html lang="en-US"class="no-js iem7"> <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en-US" class="no-js ie6 oldie"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en-US" class="no-js ie7 oldie"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en-US" class="no-js ie8 oldie"> <![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html lang="zh-CN" class="no-js"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <!--[if ie]><meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'/><![endif]-->
+    
+    <title>{% block title %}{% endblock %}&nbsp;|&nbsp;鳗鱼电脑工作室</title>
+        
+    <!-- meta -->
+    <meta name="description" content="鳗鱼电脑工作室">
+    <meta name="keywords" content="" />
+    <meta name="revisit-after" content="2 days" />
+    <meta name="author" content="whypro">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            
+            
+    <!-- robots -->
+    <meta name="robots" content="none" />
+    <meta name="googlebot" content="none" />
+    
+    <!--[if lt IE 9]>
+    <script src="{{ url_for('static', filename='js/html5.js') }}"></script>
+    <![endif]-->
+        
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet" id="superfish-css"  href="{{ url_for('static', filename='css/superfish.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="tiptip-css"  href="{{ url_for('static', filename='js/tiptip/tipTip.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="prettyphoto-css"  href="{{ url_for('static', filename='js/prettyphoto/css/prettyPhoto.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="normalize-css"  href="{{ url_for('static', filename='css/normalize.css') }}" type="text/css" media="all" />
+
+    <link rel="stylesheet" id="boxes-css"  href="{{ url_for('static', filename='lib/shortcodes/css/boxes.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="lists-css"  href="{{ url_for('static', filename='lib/shortcodes/css/lists.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="social-css"  href="{{ url_for('static', filename='lib/shortcodes/css/social.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="slider-css"  href="{{ url_for('static', filename='lib/shortcodes/css/slider.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="viewers-css"  href="{{ url_for('static', filename='lib/shortcodes/css/viewers.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="tabs-css"  href="{{ url_for('static', filename='lib/shortcodes/css/tabs.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="toggles-css"  href="{{ url_for('static', filename='lib/shortcodes/css/toggles.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="site5_buttons-css"  href="{{ url_for('static', filename='lib/shortcodes/css/buttons.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="columns-css"  href="{{ url_for('static', filename='lib/shortcodes/css/columns.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" id="flexslider-css"  href="{{ url_for('static', filename='css/flexslider.css') }}" type="text/css" media="all" />
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/modernizr-2.6.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/libs/selectivizr-min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/superfish.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/prettyphoto/jquery.prettyPhoto.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/player/mediaelement-and-player.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/fit-videos/jquery.fitvids.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tipsy/jquery.tipsy.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/flex-slider/jquery.flexslider-min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/carousel/jquery.jcarousel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.easing-1.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/shortcodes/js/buttons.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/shortcodes/js/jquery.quovolver.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/shortcodes/js/jquery.cycle.all.min.js') }}"></script>
+    
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/ico" />
+    
+    <style type="text/css">
+    .recentcomments a {
+        display:inline !important;
+        padding:0 !important;
+        margin:0 !important;
+    }
+    </style>
+    <style type="text/css" id="custom-background-css">
+    body.custom-background { 
+        background-image: url("{{ url_for('static', filename='image/main-bg1.jpg') }}");
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-attachment: fixed; 
+    }
+    </style>
+         
+    <!-- custom typography-->   
+    <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css' />		
+    <!-- custom typography -->
+    <style type="text/css" media="all">
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Dosis', sans-serif;
+    }
+    </style>
+</head>
+	
+<body {% block bodyclass %}{% endblock %}>
+    <div id="page">
+        <div class="container clearfix">
+            <div id="pre-header">
+                <!-- begin #socialIcons -->
+                <div id="social-icons">
+                    <ul id="social-links">
+                        <li class="facebook-link"><a href="#" class="facebook" id="social-01" title="Join Us on Facebook!">Facebook</a></li>
+                        <li class="twitter-link"><a href="#" class="twitter" id="social-02" title="Follow Us on Twitter">Twitter</a></li>
+                        <li class="google-link"><a href="#" id="social-03" title="Google+" class="google">Google</a></li>
+                        <li class="dribbble-link"><a href="#" id="social-04" title="Dribble" class="dribbble">Dribble</a></li>
+                        <li class="vimeo-link"><a href="#" id="social-05" title="Vimeo" class="vimeo">Vimeo</a></li>
+                        <li class="skype-link"><a href="#" id="social-06" title="Skype" class="skype">Skype</a></li>
+                        <li class="linkedin-link"><a href="#" id="social-07" title=" LinkedIn" class="linkedin">Linkedin</a></li>
+                        <li class="pinterest-link"><a href="#" id="social-09" title="Pinterest" class="pinterest">Pinterest</a></li>
+                        <li class="rss-link"><a href="#" id="social-08" title="RSS" class="rss">RSS 订阅</a></li>
+                    </ul>
+                </div>
+                <select id="responsive-social-menu" onchange = "javascript:window.location.replace(this.value);"><option selected="selected" >Social Links</select>
+                <!-- end #socialIcons -->
+            </div>
+            <!-- end #pre-header -->
+
+            <header role="banner" id="header" class="clearfix">
+                    
+                <!-- begin #logo -->
+                <hgroup id="logo-wrapper">
+                    <h1>
+                        <a id="logo" href="{{ url_for('index') }}" title="鳗鱼电脑工作室">
+                        <img src="{{ url_for('static', filename='image/logo.png') }}" alt="鳗鱼电脑工作室" />
+                        </a>
+                    </h1>
+                </hgroup>
+                <!-- end #logo -->
+                    
+                <!-- begin #topMenu -->
+                <div id="navigation-wrapper" class="clearfix">
+                    <select id = "responsive-main-nav-menu" onchange = "javascript:window.location.replace(this.value);">
+                        <option selected="selected" >Menu</option>
+                    </select>
+                    <nav id="main-navigation" class="main-menu">
+                        <ul id="menu-top-menu" class="sf-menu">
+                            <li id="menu-item-1" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1">
+                                <a href="{{ url_for('index') }}">首页</a>
+                            </li>
+                            <li id="menu-item-2" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2">
+                                <a href="{{ url_for('show_goods') }}">产品介绍</a>
+                            </li>
+                            <li id="menu-item-260" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-260"><a href="{{ url_for('contact') }}">联系我们</a></li>
+                            <li id="menu-item-261" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-261"><a href="{{ url_for('join_us') }}">加入我们</a></li>
+                            <li id="menu-item-2" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2">
+                                <a>关于我</a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.douban.com/people/whypro/" target="_blank">豆瓣</a></li>
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://weibo.com/anchovit" target="_blank">微博</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- end #topMenu -->
+            </header> 
+            <!-- end header -->
+        </div>
