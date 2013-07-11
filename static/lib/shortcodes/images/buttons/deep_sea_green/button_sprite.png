@@ -1,0 +1,341 @@
+<!doctype html>
+
+<!--[if IEMobile 7 ]> <html lang="en-US"class="no-js iem7"> <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en-US" class="no-js ie6 oldie"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en-US" class="no-js ie7 oldie"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en-US" class="no-js ie8 oldie"> <![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html lang="en-US" class="no-js"><!--<![endif]-->
+	
+	<head>
+		<meta charset="utf-8">
+		<!--[if ie]><meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'/><![endif]-->
+		
+		<title>Page not found  &#8211;   SimpleCorp</title>
+		
+				
+		<!-- meta -->
+		<meta name="description" content="full functionable, premium wordpress theme solution for your website.">
+		<meta name="keywords" content=" &raquo; Page not found, proffesional wordpress theme, flexible wordpress theme, wordpress all in one theme, premium wordpress theme " />
+		<meta name="revisit-after" content="2 days" />
+		<meta name="author" content="www.site5.com">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				
+				
+		<!-- robots -->
+		<meta name="robots" content="none" />
+		<meta name="googlebot" content="none" />
+				
+				
+  		<link rel="pingback" href="http://demo.s5themes.com/simplecorp/xmlrpc.php">
+		
+		<!--[if lt IE 9]>
+		<script src="http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/html5.js"></script>
+		<![endif]-->
+			
+		
+
+		
+		<link rel="stylesheet" href="http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/style.css">
+
+		<!-- wordpress head functions -->
+		<link rel="alternate" type="application/rss+xml" title="SimpleCorp &raquo; Feed" href="http://demo.s5themes.com/simplecorp/feed/" />
+<link rel="alternate" type="application/rss+xml" title="SimpleCorp &raquo; Comments Feed" href="http://demo.s5themes.com/simplecorp/comments/feed/" />
+<link rel='stylesheet' id='superfish-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/css/superfish.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='tiptip-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/tiptip/tipTip.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='prettyphoto-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/prettyphoto/css/prettyPhoto.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='normalize-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/css/normalize.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='boxes-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/css/boxes.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='lists-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/css/lists.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='social-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/css/social.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='slider-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/css/slider.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='viewers-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/css/viewers.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='tabs-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/css/tabs.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='toggles-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/css/toggles.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='site5_buttons-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/css/buttons.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='columns-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/css/columns.css?ver=3.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='flexslider-css'  href='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/css/flexslider.css?ver=3.5.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-includes/js/jquery/jquery.js?ver=1.8.3'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/modernizr-2.6.1.min.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/libs/selectivizr-min.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/superfish.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/prettyphoto/jquery.prettyPhoto.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/js/buttons.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/js/jquery.quovolver.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/lib/shortcodes/js/jquery.cycle.all.min.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/player/mediaelement-and-player.min.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/fit-videos/jquery.fitvids.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/tipsy/jquery.tipsy.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/flex-slider/jquery.flexslider-min.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/carousel/jquery.jcarousel.min.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/jquery.easing-1.3.min.js?ver=3.5.1'></script>
+<link rel="shortcut icon" href="http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/images/ico/favicon.ico" type="image/ico" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://demo.s5themes.com/simplecorp/files/2012/09/main-bg1.jpg'); background-repeat: no-repeat; background-position: top center; background-attachment: fixed; }
+</style>
+		<!-- end of wordpress head -->
+		
+
+
+		
+		     
+		<!-- custom typography-->   
+						<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>		<!-- custom typography -->
+						<style type="text/css" media="all">
+
+    h1,h2,h3,h4,h5,h6 {
+    font-family: 'Dosis', sans-serif    }
+</style>		
+
+		 
+			<!-- custom color scheme css -->  
+			<link rel="stylesheet" href="http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/css/color-schemes/light-blue/styles.css">
+		
+
+		
+	</head>
+	
+	<body class="error404 custom-background layout-2cr">
+	
+
+		<div id="page">
+			
+			
+			<div class="container clearfix">
+			
+			
+				<div id="pre-header">
+					<!-- begin #socialIcons -->
+					<div id="social-icons">
+						<ul id="social-links">
+														<li class="facebook-link"><a href="http://www.facebook.com/Site5" class="facebook" id="social-01" title="Join Us on Facebook!">Facebook</a></li>
+																					<li class="twitter-link"><a href="http://twitter.com/site5" class="twitter" id="social-02" title="Follow Us on Twitter">Twitter</a></li>
+																					<li class="google-link"><a href="#" id="social-03" title="Google+" class="google">Google</a></li>
+																					<li class="dribbble-link"><a href="#" id="social-04" title="Dribble" class="dribbble">Dribble</a></li>
+																					<li class="vimeo-link"><a href="#" id="social-05" title="Vimeo" class="vimeo">Vimeo</a></li>
+																					<li class="skype-link"><a href="#" id="social-06" title="Skype" class="skype">Skype</a></li>
+																					<li class="linkedin-link"><a href="#" id="social-07" title=" LinkedIn" class="linkedin">Linkedin</a></li>
+																					<li class="pinterest-link"><a href="#" id="social-09" title="Pinterest" class="pinterest">Pinterest</a></li>
+																						<li class="rss-link"><a href="http://demo.s5themes.com/simplecorp/feed/rss/" id="social-08" title="RSS" class="rss">RSS Feeds</a></li>
+												</ul>
+					</div>
+					 <select id="responsive-social-menu" onchange = "javascript:window.location.replace(this.value);"><option selected="selected" >Social Links</select>
+					 <!-- end #socialIcons -->
+				</div>
+				<!-- end #pre-header -->
+			
+			
+			
+				
+				
+				<header role="banner" id="header" class="clearfix">
+						
+						<!-- begin #logo -->
+												<hgroup id="logo-wrapper">
+							<h1><a id="logo" href="http://demo.s5themes.com/simplecorp/" title="SimpleCorp" rel="home">
+								<img src="http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp//library/images/logo.png" alt="SimpleCorp" />
+							</a></h1>
+							
+						</hgroup>
+						
+												<!-- end #logo -->
+						
+				
+					
+						<!-- begin #topMenu -->
+						<div id="navigation-wrapper" class="clearfix">
+							<select id = "responsive-main-nav-menu" onchange = "javascript:window.location.replace(this.value);"><option selected="selected" >Menu</option></select>
+							
+							<nav id="main-navigation" class="main-menu">
+							<ul id="menu-top-menu" class="sf-menu"><li id="menu-item-257" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-257"><a href="http://demo.s5themes.com/simplecorp/about/">Pages</a>
+<ul class="sub-menu">
+	<li id="menu-item-258" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-258"><a href="http://demo.s5themes.com/simplecorp/about/">About Us</a></li>
+	<li id="menu-item-262" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-262"><a href="http://demo.s5themes.com/simplecorp/typography/">Typography</a></li>
+	<li id="menu-item-259" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-259"><a href="http://demo.s5themes.com/simplecorp/sample-page-2/">Sample Page Fullwidth</a></li>
+</ul>
+</li>
+<li id="menu-item-263" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-263"><a href="http://demo.s5themes.com/simplecorp/portfolio/">Portfolio</a>
+<ul class="sub-menu">
+	<li id="menu-item-253" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-253"><a href="http://demo.s5themes.com/simplecorp/portfolio/">Portfolio Fullwidth</a></li>
+	<li id="menu-item-271" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-271"><a href="http://demo.s5themes.com/simplecorp/porfolio-with-sidebar/">Porfolio with Sidebar</a></li>
+</ul>
+</li>
+<li id="menu-item-256" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-256"><a href="http://demo.s5themes.com/simplecorp/blog/">Blog</a>
+<ul class="sub-menu">
+	<li id="menu-item-222" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-222"><a href="http://demo.s5themes.com/simplecorp/category/news/">News</a></li>
+	<li id="menu-item-223" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-223"><a href="http://demo.s5themes.com/simplecorp/category/events/">Events</a></li>
+</ul>
+</li>
+<li id="menu-item-261" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-261"><a href="http://demo.s5themes.com/simplecorp/shortcodes/">Shortcodes</a>
+<ul class="sub-menu">
+	<li id="menu-item-265" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-265"><a href="http://demo.s5themes.com/simplecorp/shortcodes/columns/">Columns</a></li>
+	<li id="menu-item-264" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-264"><a href="http://demo.s5themes.com/simplecorp/shortcodes/list-styles/">List Styles</a></li>
+	<li id="menu-item-266" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-266"><a href="http://demo.s5themes.com/simplecorp/shortcodes/buttons/">Buttons</a></li>
+	<li id="menu-item-267" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-267"><a href="http://demo.s5themes.com/simplecorp/shortcodes/message-boxes/">Message Boxes</a></li>
+	<li id="menu-item-268" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-268"><a href="http://demo.s5themes.com/simplecorp/shortcodes/toggle-tabs/">Toggle &#038; Tabs</a></li>
+	<li id="menu-item-270" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-270"><a href="http://demo.s5themes.com/simplecorp/shortcodes/media/">Media</a></li>
+	<li id="menu-item-269" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-269"><a href="http://demo.s5themes.com/simplecorp/shortcodes/social-gallery/">Social &#038; Gallery</a></li>
+</ul>
+</li>
+<li id="menu-item-260" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-260"><a href="http://demo.s5themes.com/simplecorp/contact/">Contact</a></li>
+</ul>							</nav>
+						</div>
+						<!-- end #topMenu -->
+				
+				</header> <!-- end header -->
+							
+			
+			</div>
+			
+			<div id="content" class="clearfix">
+
+				<!-- page header -->
+				<div class="container clearfix ">
+
+					
+												<img class="intro-img" alt=" " src="http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/images/inner-page-bg.jpg" />
+											
+				</div>
+				
+				<div id="main" role="main" class="container clearfix">
+
+					<article id="post-not-found">
+						
+
+						<header>
+							
+							<h1 class="not-found-text"> · <span class='colored'>404</span> Error · </h1>
+						
+						</header> <!-- end article header -->
+					
+						<section class="post_content">
+							
+							<p>The article you were looking for was not found, but maybe try looking again!</p>
+					
+						</section> <!-- end article section -->
+					
+					</article> <!-- end article -->
+			
+				</div> <!-- end #main -->
+    
+			</div> <!-- end #content -->
+
+			<!-- begin #footer -->
+			<footer id="footer">
+			
+				<div class="container clearfix">
+					
+					
+								<div class="widget-1 first one-fourth widget-container widget_recent_entries" id="recent-posts-3">		<h4>Recent Posts</h4>		<ul>
+					<li>
+				<a href="http://demo.s5themes.com/simplecorp/2012/09/07/in-egestas-porta-tortor-sed-imperdiet/" title="In egestas porta tortor sed imperdiet">In egestas porta tortor sed imperdiet</a>
+						</li>
+					<li>
+				<a href="http://demo.s5themes.com/simplecorp/2012/09/06/nulla-hendrerit-vestibulum-adipiscing/" title="Nulla hendrerit vestibulum adipiscing">Nulla hendrerit vestibulum adipiscing</a>
+						</li>
+					<li>
+				<a href="http://demo.s5themes.com/simplecorp/2012/09/05/donec-fermentum-odio-et-turpis/" title="Donec fermentum odio et turpis">Donec fermentum odio et turpis</a>
+						</li>
+					<li>
+				<a href="http://demo.s5themes.com/simplecorp/2012/09/04/sed-rhoncus-mollis-porta/" title="Sed rhoncus mollis porta">Sed rhoncus mollis porta</a>
+						</li>
+					<li>
+				<a href="http://demo.s5themes.com/simplecorp/2012/07/05/vivamus-id-ante-neque/" title="Vivamus id ante neque">Vivamus id ante neque</a>
+						</li>
+				</ul>
+		</div><div class="widget-2 one-fourth widget-container widget_site5framework_twitter_widget" id="site5framework_twitter_widget-2">
+
+        <!-- start twitter widget -->
+         <h4>Tweets Update</h4>
+        <link rel="stylesheet" type="text/css" media="all" href="http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/tweets/jquery.jtweets-1.2.1.css" />
+	    <script type="text/javascript" src="http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/tweets/jquery.jtweets-1.2.1.js"></script>
+
+        <div id="jTweets"> </div>
+        <script type="text/javascript">
+			$j = jQuery.noConflict();
+	        $j('#jTweets').jTweetsAnywhere({
+	        username: 'site5',
+	        count: 2,
+	        showTweetFeed: {
+			showInReplyTo: false,
+	        paging: { mode: 'none' }
+	        }
+	        });
+        </script>
+        <!-- end twitter widget -->
+		<a class="twitter-action" href="http://twitter.com/site5">Follow Us on Twitter!  &raquo; </a>
+
+
+        </div><div class="widget-3 one-fourth widget-container widget_links" id="linkcat-2"><h4>Blogroll</h4>
+	<ul class='xoxo blogroll'>
+<li><a href="http://codex.wordpress.org/">Documentation</a></li>
+<li><a href="http://wordpress.org/support/forum/requests-and-feedback">Feedback</a></li>
+<li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
+<li><a href="http://wordpress.org/support/">Support Forums</a></li>
+<li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
+<li><a href="http://wordpress.org/news/">WordPress Blog</a></li>
+<li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+
+	</ul>
+</div>
+<div class="widget-4 last one-fourth widget-container widget_site5framework_contact_widget" id="site5framework_contact_widget-2">
+            <!-- start contact widget -->
+            <h4>Contact Info</h4>        
+
+		
+	        <div class="contactmap">
+					<p>
+											</p>
+	                <address>
+						<span class="address">0123 Some Street. Some Country</span>
+						<span class="phone">(123) 987-654-321</span>
+                        <span class="email">contact@company.com</span>
+					</address>
+					<p>
+											</p>
+
+	        </div>
+
+        <!-- end contact widget -->
+
+
+        </div>
+										
+					
+					
+				</div> <!-- end #footerWidgets -->
+				
+				<!-- begin #copyright -->
+				<div id="copyrights">
+					<div class="container clearfix">
+
+						<span class="right">
+							<a class="backtotop" href="#">↑</a>
+						</span>
+
+						
+												&copy; Copyright 2012 SimpleCorp by <a href='http://www.site5.com'>Site5.com</a>. All Rights Reserved. 												<!-- Site5 Credits-->
+						<br>Created by <a href="http://www.s5themes.com/">Site5 WordPress Themes</a>. Experts in <a href="http://gk.site5.com/t/568">WordPress Hosting</a>. 
+
+						
+					</div>
+				</div>
+				<!-- end #copyright -->
+				
+			</footer> <!-- end footer -->
+		
+		</div> <!-- end #container -->
+		
+		<!-- scripts are now optimized via Modernizr.load -->
+		<script src="http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/scripts.js" type="text/javascript"></script>
+		
+		<!--[if lt IE 7 ]>
+  			<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+  			<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+		<![endif]-->
+		
+		<script type='text/javascript' src='http://demo.s5themes.com/simplecorp/wp-content/themes/simplecorp/library/js/behaviours.js?ver=3.5.1'></script>
+		
+	</body>
+
+</html>
