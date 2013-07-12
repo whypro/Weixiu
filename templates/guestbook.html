@@ -2,46 +2,11 @@
 {% block title %}留言板{% endblock %}
 {% block body %}
     <div id="content">
-        <div class="input-form">
-            <form method="post" action="">
-                {% if error %}
-                <div class="error">错误：{{ error }}</div>
-                {% endif %}
-                <div class="item">
-                    <label>姓名</label>
-                    {% if pre_val %}
-                    <input class="basic-input" name="name" type="text" readonly value="{{ pre_val.name }}" />
-                    {% else %}
-                    <input class="basic-input" name="name" type="text" autocomplete="off" disableautocomplete />
-                    {% endif %}
-                </div>
-                <div class="item">
-                    <label>邮箱</label>
-                    {% if pre_val %}
-                    <input class="basic-input" name="email" type="text" readonly value="{{ pre_val.email }}" />
-                    {% else %}
-                    <input class="basic-input" name="email" type="text" autocomplete="off" disableautocomplete />
-                    {% endif %}
-                </div>
-                <div class="item">
-                    <label>内容</label>
-                    <textarea name="content" rows="6" cols="60" placeholder="在此输入留言内容……"></textarea>
-                </div>
-                <div class="item">
-                    <label>验证码</label>
-                    <input class="basic-input" name="vcode" type="text" autocomplete="off" disableautocomplete />
-                    <img class="captcha-img" src="{{ url_for('get_captcha') }}" onclick="this.src='{{ url_for('get_captcha') }}'" />
-                </div>
-                <div class="item-submit">
-                    <label>&nbsp;</label>
-                    <input class="btn-submit" name="submit" type="submit" value="留言" />
-                </div>
-            </form>
-        </div>
         <div class="post">
-            {% if session.logged_in %}
+            
             <div class="messages">
                 <ul>
+                    {% if session.logged_in %}
                     {% for message in messages %}
                     <li>
                         <div class="m_name">姓名：{{ message.name }}</div>
@@ -50,20 +15,22 @@
                         <div class="m_content">内容：{{ message.content }}</div>
                         <div class="m_delete"><a href="{{ url_for('delete_message', id=message.id) }}">[删除]</a></div>
                     </li>
-                    {% else %}
+                    {% else %} {# else of for #}
                     <li><em>无留言</em></li>
                     {% endfor %}
+                    {% else %} {# else of if #}
+                    <li><em>无留言</em></li>
+                    {% endif %}
                 </ul>
                 <div class="pagination">
                     {% if cur_page > 1 %}
-                    <a href="{{ url_for('leave_message', page=cur_page-1) }}">上一页</a>
+                    <a href="{{ url_for('show_message', page=cur_page-1) }}">上一页</a>
                     {% endif %}
                     {% if cur_page < total_pages %}
-                    <a href="{{ url_for('leave_message', page=cur_page+1) }}">下一页</a>
+                    <a href="{{ url_for('show_message', page=cur_page+1) }}">下一页</a>
                     {% endif %}
                 </div>
             </div>
-            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -43,7 +43,7 @@ def show_os():
 # 各系统介绍页面
 from flask import abort
 @app.route('/os/<os>/')
-def show_os_info(os):
+def show_os_detail(os):
     t_name = os + '.html'
     try:
         return render_template(t_name)
@@ -55,42 +55,17 @@ def show_os_info(os):
 def show_home_network():
     return render_template('home-network.html')
         
-# 留言页面
-@app.route('/guestbook/', defaults={'page': 1}, methods=['GET', 'POST'])
+# 查看留言页面
+@app.route('/guestbook/', defaults={'page': 1}, methods=['GET'])
 @app.route('/guestbook/page/<int:page>/', methods=['GET'])
-def leave_message(page):
-    error = None
+def show_message(page):
     messages = []
-    pre_val = None
     total_pages = 0
-    if session.get('logged_in'):
-        cur = g.db.cursor()
-        cur.execute('select username, email from people where username=%s', session.get('username'))
-        row = cur.fetchone()
-        pre_val = dict(name=row[0], email=row[1])
-        
-    if request.method == 'POST':
-        if not request.form['name']:
-            error = u'姓名不能为空'
-        elif not request.form['content']:
-            error = u'留言内容不能为空'
-        elif request.form['vcode'].upper() != session['validate'].upper():
-            error = u'验证码不正确'
-        else:
-            # 前台验证通过
-            cur = g.db.cursor()
-            cur.execute('select id from people where username=%s', session.get('username'))
-            id = cur.fetchone()[0]
-            cur = g.db.cursor()
-            cur.execute('insert into message(people_id, name, email, content, ip) values(%s, %s, %s, %s, %s)', (id, request.form['name'], request.form['email'], request.form['content'], request.remote_addr))
-            g.db.commit()
-            flash(u'留言成功，3 秒钟内将返回首页……')
-            return render_template('flash.html', target=url_for('index'))
-
     # 分页
     messages_per_page = 5
     offset = (page - 1) * messages_per_page
     if session.get('logged_in'):
+        cur = g.db.cursor()
         if is_admin(session.get('username')):
             cur.execute('select id from message order by id desc')
             total_messages = cur.rowcount
@@ -107,7 +82,43 @@ def leave_message(page):
             if page != 1 and not cur.rowcount:
                 abort(404)
             messages = [dict(id=row[0], name=row[1], content=row[3], datetime=row[4], ip=row[5]) for row in cur.fetchall()]
-    return render_template('guestbook.html', messages=messages, pre_val=pre_val, error=error, cur_page=page, total_pages=total_pages)
+    print messages
+    return render_template('guestbook.html', messages=messages, cur_page=page, total_pages=total_pages)
+    
+    
+    
+# 联系我们页面 
+@app.route('/contact/', methods=['GET', 'POST'])
+def leave_message():
+    error = None
+    user = None
+    id = None
+    if session.get('logged_in'):
+        cur = g.db.cursor()
+        cur.execute('select username, email from people where username=%s', session.get('username'))
+        row = cur.fetchone()
+        user = dict(name=row[0], email=row[1])
+        
+    if request.method == 'POST':
+        if not request.form['name']:
+            error = u'姓名不能为空'
+        elif not request.form['content']:
+            error = u'留言内容不能为空'
+        elif request.form['vcode'].upper() != session['validate'].upper():
+            error = u'验证码不正确'
+        else:
+            # 前台验证通过
+            if session.get('logged_in'):
+                cur = g.db.cursor()
+                cur.execute('select id from people where username=%s', session.get('username'))
+                id = cur.fetchone()[0]
+            cur = g.db.cursor()
+            cur.execute('insert into message(people_id, name, email, content, ip) values(%s, %s, %s, %s, %s)', (id, request.form['name'], request.form['email'], request.form['content'], request.remote_addr))
+            print 
+            g.db.commit()
+            flash(u'留言成功，3 秒钟内将返回首页……')
+            return render_template('flash.html', target=url_for('index'))
+    return render_template('contact.html', user=user, error=error)
 
 def is_admin(username):
     cur = g.db.cursor()
@@ -244,7 +255,7 @@ def show_profile():
 
 # 加入我们页面        
 @app.route('/join/')
-def join_us():
+def show_join():
     return render_template('join.html')
 
     
@@ -378,10 +389,11 @@ def add_goods_photo(id):
         # return render_template('flash.html', target=url_for('login'))
         abort(404)
 
-@app.route('/services/', methods=['GET'])        
-def show_services():
-    return render_template('services.html')
-    
+@app.route('/service/', methods=['GET'])        
+def show_service():
+    return render_template('service.html')
+
+# 错误处理   
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

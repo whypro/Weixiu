@@ -6,7 +6,6 @@ app.config.from_object('config')
 app.debug = True
 from views import *
 
-
 if 'SERVER_SOFTWARE' in os.environ:
     from bae.core.wsgi import WSGIApplication
     application = WSGIApplication(app)

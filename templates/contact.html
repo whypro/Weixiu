@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}联系我们{% endblock %}
+{% block body %}
+    <div id="content">
+        <div class="input-form">
+            <form method="post" action="">
+                {% if error %}
+                <div class="error">错误：{{ error }}</div>
+                {% endif %}
+                <div class="item">
+                    <label>姓名</label>
+                    {% if pre_val %}
+                    <input class="basic-input" name="name" type="text" readonly value="{{ pre_val.name }}" />
+                    {% else %}
+                    <input class="basic-input" name="name" type="text" autocomplete="off" disableautocomplete />
+                    {% endif %}
+                </div>
+                <div class="item">
+                    <label>邮箱</label>
+                    {% if pre_val %}
+                    <input class="basic-input" name="email" type="text" readonly value="{{ pre_val.email }}" />
+                    {% else %}
+                    <input class="basic-input" name="email" type="text" autocomplete="off" disableautocomplete />
+                    {% endif %}
+                </div>
+                <div class="item">
+                    <label>内容</label>
+                    <textarea name="content" rows="6" cols="60" placeholder="在此输入留言内容……"></textarea>
+                </div>
+                <div class="item">
+                    <label>验证码</label>
+                    <input class="basic-input" name="vcode" type="text" autocomplete="off" disableautocomplete />
+                    <img class="captcha-img" src="{{ url_for('get_captcha') }}" onclick="this.src='{{ url_for('get_captcha') }}'" />
+                </div>
+                <div class="item-submit">
+                    <label>&nbsp;</label>
+                    <input class="btn-submit" name="submit" type="submit" value="留言" />
+                </div>
+            </form>
+        </div>
+        <div class="post">
+            <a href="{{ url_for('show_message') }}">[查看留言]</a>
+        </div>
+    </div>
+{% endblock %}

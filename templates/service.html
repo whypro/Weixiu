@@ -7,9 +7,9 @@
             <li>
                 <h2><a href="{{ url_for('show_os') }}">重装系统</a></h2>
                 <ul>
-                    <li><h3><a href="{{ url_for('show_os_info', os='winxp') }}">Windows XP</a></h3></li>
-                    <li><h3><a href="{{ url_for('show_os_info', os='win7') }}">Windows 7</a><span class="recommend">（推荐）</span></h3></li>
-                    <li><h3><a href="{{ url_for('show_os_info', os='win8') }}">Windows 8</a><span class="recommend">（新）</span></h3></li>
+                    <li><h3><a href="{{ url_for('show_os_detail', os='winxp') }}">Windows XP</a></h3></li>
+                    <li><h3><a href="{{ url_for('show_os_detail', os='win7') }}">Windows 7</a><span class="recommend">（推荐）</span></h3></li>
+                    <li><h3><a href="{{ url_for('show_os_detail', os='win8') }}">Windows 8</a><span class="recommend">（新）</span></h3></li>
                     <li><h3>Linux</h3></li>
                 </ul>
             </li>
